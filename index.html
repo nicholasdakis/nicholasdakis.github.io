@@ -208,6 +208,32 @@
       line-height: 1.65;
     }
 
+    /* --- project bullets --- */
+    .project-bullets {
+      margin-bottom: 20px;
+      padding-left: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .project-bullets li {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.55;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .project-bullets li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      opacity: 0.6;
+    }
+
     /* --- divider --- */
     .divider {
       height: 1px;
@@ -295,15 +321,13 @@
       </div>
       <div class="project-subtitle">Health and fitness app</div>
       <div class="platform-line">Available on web on all devices. Android coming soon</div>
-      <p class="project-desc">
-        <ul>
-          <li>Cross-platform Flutter health app with a secured Flask backend</li>
-          <li>Log meals via barcode scan or search, track macros, and calculate calories with BMR and TDEE</li>
-          <li>Check in to nearby locations on an interactive map to earn XP, with per-location cooldowns</li>
-          <li>Leaderboard, badges, daily rewards, streak tracking, and push notifications</li>
-          <li>Redis caching, PostgreSQL stored procedures with row-level locking, and CI/CD via GitHub Actions</li>
-        </ul>
-      </p>
+      <ul class="project-bullets">
+        <li>Cross-platform Flutter health app with a secured Flask backend</li>
+        <li>Log meals via barcode scan or search, track macros, and calculate calories with BMR and TDEE</li>
+        <li>Check in to nearby locations on an interactive map to earn XP, with per-location cooldowns</li>
+        <li>Leaderboard, badges, daily rewards, streak tracking, and push notifications</li>
+        <li>Redis caching, PostgreSQL stored procedures with row-level locking, and CI/CD via GitHub Actions</li>
+      </ul>
       <div class="divider"></div>
       <div class="tag-row">
         <span class="tag">Flutter</span>
