@@ -1,40 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-  <!-- ==================== META ==================== -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google-adsense-account" content="ca-pub-4003172698560190">
   <title>Nicholas Dakis</title>
 
-  <!-- ==================== FONTS ==================== -->
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Space+Mono&display=swap" rel="stylesheet">
 
-  <!-- ==================== STYLES ==================== -->
   <style>
-
-    /* --- reset & base --- */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+    /* --- variables --- */
     :root {
       --bg: #2a2a2a;
       --accent: #5a5af0;
       --text: #e8e8e8;
-      --muted: #666666;
-      --border: rgba(255,255,255,0.08);
-      --glass: rgba(255,255,255,0.05);
+      --muted: #a0a0a0;
+      --border: rgba(255, 255, 255, 0.08);
+      --glass: rgba(255, 255, 255, 0.05);
       --font: 'Space Grotesk', sans-serif;
       --mono: 'Space Mono', monospace;
     }
+
+    /* --- reset & base --- */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background: var(--bg);
       color: var(--text);
       font-family: var(--font);
-      font-size: 16px;
       line-height: 1.6;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     a { color: inherit; text-decoration: none; }
@@ -43,13 +40,12 @@
     .wrap {
       max-width: 720px;
       margin: 0 auto;
-      padding: 80px 24px;
+      padding: 80px 24px 120px;
+      width: 100%;
     }
 
     /* --- hero --- */
-    .hero {
-      margin-bottom: 80px;
-    }
+    .hero { margin-bottom: 64px; }
 
     .hero h1 {
       font-size: clamp(42px, 9vw, 72px);
@@ -59,7 +55,7 @@
       margin-bottom: 32px;
     }
 
-    /* --- social links --- */
+    /* --- links --- */
     .links { display: flex; gap: 12px; }
 
     .link-btn {
@@ -76,24 +72,21 @@
       padding: 10px 18px;
       border-radius: 100px;
       transition: color 0.2s, border-color 0.2s;
-      letter-spacing: 0.05em;
     }
 
     .link-btn:hover {
       color: var(--accent);
-      border-color: rgba(90,90,240,0.3);
+      border-color: rgba(90, 90, 240, 0.3);
     }
 
     /* --- section --- */
-    .section { margin-bottom: 24px; }
-
     .section-label {
       font-family: var(--mono);
       font-size: 11px;
       color: var(--muted);
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      margin-bottom: 16px;
+      margin-bottom: 24px;
     }
 
     /* --- project card --- */
@@ -105,66 +98,81 @@
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--border);
       border-radius: 16px;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, transform 0.2s;
     }
 
-    .project-card:hover { border-color: rgba(90,90,240,0.3); }
-    .project-card:hover .arrow { color: var(--accent); transform: translateX(4px); }
+    .project-card:hover {
+      border-color: rgba(90, 90, 240, 0.3);
+      transform: translateY(-2px);
+    }
 
     .project-top {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 10px;
+      align-items: center;
+      margin-bottom: 8px;
     }
 
-    .project-name {
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
+    .project-name { font-size: 24px; font-weight: 700; }
+
+    .beta-tag {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--accent);
+      background: rgba(90, 90, 240, 0.1);
+      padding: 2px 8px;
+      border-radius: 4px;
+      border: 1px solid rgba(90, 90, 240, 0.2);
     }
 
-    .arrow {
+    .project-subtitle {
+      font-family: var(--mono);
+      font-size: 11px;
       color: var(--muted);
-      font-size: 20px;
-      transition: color 0.2s, transform 0.2s;
+      margin-bottom: 16px;
+      letter-spacing: 0.04em;
     }
 
     .project-desc {
-      font-size: 14px;
+      font-size: 15px;
       color: var(--muted);
-      margin-bottom: 20px;
-      max-width: 480px;
+      margin-bottom: 24px;
+      max-width: 520px;
     }
 
+    /* --- tags --- */
+    .tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
+
     .tag {
-      display: inline-block;
       font-family: var(--mono);
       font-size: 10px;
       color: var(--muted);
-      background: rgba(255,255,255,0.04);
+      background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--border);
       padding: 4px 10px;
       border-radius: 100px;
-      margin-right: 6px;
-      letter-spacing: 0.06em;
     }
 
     /* --- footer --- */
     .footer {
-      margin-top: 80px;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 24px;
+      background: linear-gradient(to top, var(--bg) 50%, transparent);
+      text-align: center;
       font-family: var(--mono);
       font-size: 11px;
       color: var(--muted);
-      letter-spacing: 0.05em;
+      z-index: 10;
     }
 
     /* --- responsive --- */
     @media (max-width: 480px) {
-      .wrap { padding: 40px 16px; }
+      .wrap { padding: 40px 16px 100px; }
       .links { flex-direction: column; }
     }
-
   </style>
 </head>
 <body>
@@ -174,8 +182,6 @@
   <!-- ==================== HERO ==================== -->
   <header class="hero">
     <h1>Nicholas Dakis</h1>
-
-    <!-- social links -->
     <div class="links">
       <a href="https://github.com/nicholasdakis" target="_blank" class="link-btn">↗ GitHub</a>
       <a href="https://linkedin.com/in/nicholasdakis" target="_blank" class="link-btn">↗ LinkedIn</a>
@@ -190,24 +196,32 @@
     <a href="/level_up" class="project-card">
       <div class="project-top">
         <div class="project-name">Level Up!</div>
-        <div class="arrow">→</div>
+        <span class="beta-tag">BETA</span>
       </div>
-      <p class="project-desc">A gamified productivity app that turns your habits and goals into an RPG experience. iOS, Android, and web.</p>
-      <span class="tag">Flutter</span>
-      <span class="tag">Firebase</span>
-      <span class="tag">iOS</span>
-      <span class="tag">Android</span>
-      <span class="tag">Web</span>
+      <div class="project-subtitle">RPG productivity engine</div>
+      <p class="project-desc">
+        Gamify your health and habits. Available on web - Android coming soon.
+      </p>
+      <div class="tag-row">
+        <span class="tag">Flutter</span>
+        <span class="tag">Python Flask</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">Redis</span>
+        <span class="tag">Firebase</span>
+        <span class="tag">GitHub Actions</span>
+        <span class="tag">CI/CD</span>
+        <span class="tag">FCM</span>
+        <span class="tag">Pydantic</span>
+      </div>
     </a>
 
   </section>
-
-  <!-- ==================== FOOTER ==================== -->
-  <footer class="footer">
-    &copy; 2026 Nicholas Dakis
-  </footer>
-
 </div>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+  &copy; 2026 Nicholas Dakis
+</footer>
 
 </body>
 </html>
