@@ -296,7 +296,13 @@
       <div class="project-subtitle">Health and fitness app</div>
       <div class="platform-line">Available on web on all devices. Android coming soon</div>
       <p class="project-desc">
-        Cross-platform health app with a secured Flask backend, Pydantic-validated endpoints, and a 3-layer architecture (auth, service, repository). Features atomic XP updates via PostgreSQL stored procedures with row-level locking, Redis caching with distributed locking, a token bucket rate limiter with automatic daily refills, and FCM push notifications with automated stale token pruning. Deployed via GitHub Actions CI/CD
+        <ul>
+          <li>Cross-platform Flutter health app with a secured Flask backend</li>
+          <li>Log meals via barcode scan or search, track macros, and calculate calories with BMR and TDEE</li>
+          <li>Check in to nearby locations on an interactive map to earn XP, with per-location cooldowns</li>
+          <li>Leaderboard, badges, daily rewards, streak tracking, and push notifications</li>
+          <li>Redis caching, PostgreSQL stored procedures with row-level locking, and CI/CD via GitHub Actions</li>
+        </ul>
       </p>
       <div class="divider"></div>
       <div class="tag-row">
