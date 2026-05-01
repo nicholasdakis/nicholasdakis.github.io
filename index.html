@@ -421,29 +421,30 @@
       </div>
 
       <!-- ---- FEATURES ---- -->
-      <div class="card-section-label">Features</div>
-      <ul class="project-bullets">
-        <li>Log meals by barcode scan, food search, or manually, with full macro breakdown and serving size adjustment</li>
-        <li>Set calorie, protein, carb, and fat goals — progress is tracked live in the food logging tab as you log throughout the day</li>
-        <li>Analytics tab to review calorie and macro intake over a single day or a custom date range</li>
-        <li>Calorie calculator using Harris-Benedict or Mifflin-St Jeor, with BMR and TDEE breakdowns in imperial or metric</li>
-        <li>Check in to nearby locations on an interactive map to earn XP, with a 24-hour cooldown per location</li>
-        <li>Badges for progression milestones, a global leaderboard, daily XP reward, streak tracking, and push notification reminders</li>
-        <li>Google and email sign-in with profile sync across devices, custom username, theme color, and profile picture</li>
-        <li>Fully responsive UI with adaptive layouts ensuring consistent usability and visual quality across mobile, tablet, and desktop screen sizes</li>
-      </ul>
+<div class="card-section-label">Features</div>
+<ul class="project-bullets">
+  <li>Log meals via barcode scan, search, or manual entry with full macro breakdown and serving size adjustment</li>
+  <li>Set calorie and macro goals with live progress tracking in the food logging tab</li>
+  <li>Analytics tab for reviewing daily or range-based calorie and macro intake</li>
+  <li>Calorie calculator (Harris-Benedict, Mifflin-St Jeor) with BMR and TDEE breakdowns in imperial and metric units</li>
+  <li>Check in to nearby locations on an interactive map to earn XP with 24-hour per-location cooldowns</li>
+  <li>Badges, global leaderboard, daily XP rewards, streak tracking, and push notifications</li>
+  <li>Google and email sign-in with cross-device sync for username, theme color, and profile picture</li>
+  <li>Responsive UI with adaptive layouts across mobile, tablet, and desktop screens</li>
+</ul>
+<div class="divider"></div>
 
       <div class="divider"></div>
 
 <!-- ---- UNDER THE HOOD ---- -->
 <div class="card-section-label">Under the hood</div>
 <ul class="project-bullets">
-  <li>Flask-based backend structured into auth, service, and repository layers, with reusable middleware enforcing authentication across all routes</li>
-  <li>PostgreSQL data model designed around atomic XP and level updates, using row-level locking to safely handle concurrent reward claims without race conditions</li>
-  <li>Redis used for caching and distributed locking to reduce repeated external API calls and prevent cache stampedes under high traffic</li>
-  <li>Token-bucket rate limiting backed by PostgreSQL to control API usage, with daily token refills and rollback handling for failed requests to preserve quota integrity</li>
-  <li>Background job system integrated with Firebase Cloud Messaging to deliver push notifications, including automated cleanup of invalid or stale device tokens</li>
-  <li>CI/CD pipeline built with GitHub Actions to automate testing and deployment, with environment-based secrets management for secure releases</li>
+  <li>Flask backend organized into auth, service, and repository layers with shared authentication middleware across routes</li>
+  <li>PostgreSQL schema optimized for atomic XP and level updates using row-level locking for concurrent safety</li>
+  <li>Redis caching and distributed locking to reduce external API calls and prevent cache stampedes under load</li>
+  <li>Token-bucket rate limiter backed by PostgreSQL with daily refills and failure-safe quota rollback</li>
+  <li>Background jobs integrated with Firebase Cloud Messaging for push notifications and automatic invalid token cleanup</li>
+  <li>CI/CD pipeline via GitHub Actions for automated testing and deployment</li>
 </ul>
 
       <div class="divider"></div>
