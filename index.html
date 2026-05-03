@@ -160,6 +160,70 @@
       background: var(--border);
     }
 
+    /* --- skills ticker --- */
+    .sk-wrap {
+      overflow: hidden;
+      mask-image: linear-gradient(to right, transparent, black 60px, black calc(100% - 60px), transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 60px, black calc(100% - 60px), transparent);
+    }
+
+    .sk-track {
+      display: flex;
+      gap: 8px;
+      width: max-content;
+      animation: sk-scroll 55s linear infinite;
+    }
+
+    .sk-wrap:hover .sk-track { animation-play-state: paused; }
+
+    @keyframes sk-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    .skill-pill {
+      font-family: var(--mono);
+      font-size: 10px;
+      padding: 5px 13px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: transparent;
+      white-space: nowrap;
+      flex-shrink: 0;
+      cursor: default;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .skill-pill:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* --- skill tooltip --- */
+    #sk-tooltip {
+      position: fixed;
+      pointer-events: none;
+      opacity: 0;
+      background: #1e1e24;
+      border: 1px solid rgba(90, 90, 240, 0.3);
+      border-radius: 8px;
+      padding: 10px 13px;
+      width: 240px;
+      font-family: var(--mono);
+      font-size: 10px;
+      line-height: 1.6;
+      color: var(--muted);
+      z-index: 9999;
+      transition: opacity 0.15s;
+      white-space: normal;
+    }
+
+    .sk-tooltip-title {
+      display: block;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 4px;
+      font-size: 10px;
+    }
+
     /* --- project card (links to live app) --- */
     .project-card {
       display: block;
@@ -425,6 +489,14 @@
     </div>
   </header>
 
+  <!-- ==================== SKILLS ==================== -->
+  <section style="margin-bottom: 48px;">
+    <div class="section-label">Skills</div>
+    <div class="sk-wrap">
+      <div class="sk-track" id="sk-track"></div>
+    </div>
+  </section>
+
   <!-- ==================== PROJECTS ==================== -->
   <section class="section">
     <div class="section-label">Projects</div>
@@ -448,29 +520,29 @@
       </div>
 
       <!-- ---- FEATURES ---- -->
-<div class="card-section-label">Features</div>
-<ul class="project-bullets">
-  <li>Log meals via barcode scan, search, or manual entry with full macro breakdown and serving size adjustment</li>
-  <li>Set calorie and macro goals with live progress tracking in the food logging tab</li>
-  <li>Analytics tab for reviewing daily or range-based calorie and macro intake</li>
-  <li>Calorie calculator (Harris-Benedict, Mifflin-St Jeor) with BMR and TDEE breakdowns in imperial and metric units</li>
-  <li>Check in to nearby locations on an interactive map to earn XP with 24-hour per-location cooldowns</li>
-  <li>Badges, global leaderboard, daily XP rewards, streak tracking, and push notifications</li>
-  <li>Google and email sign-in with cross-device sync for username, theme color, and profile picture</li>
-  <li>Responsive UI with adaptive layouts across mobile, tablet, and desktop screens</li>
-</ul>
-<div class="divider"></div>
+      <div class="card-section-label">Features</div>
+      <ul class="project-bullets">
+        <li>Log meals via barcode scan, search, or manual entry with full macro breakdown and serving size adjustment</li>
+        <li>Set calorie and macro goals with live progress tracking in the food logging tab</li>
+        <li>Analytics tab for reviewing daily or range-based calorie and macro intake</li>
+        <li>Calorie calculator (Harris-Benedict, Mifflin-St Jeor) with BMR and TDEE breakdowns in imperial and metric units</li>
+        <li>Check in to nearby locations on an interactive map to earn XP with 24-hour per-location cooldowns</li>
+        <li>Badges, global leaderboard, daily XP rewards, streak tracking, and push notifications</li>
+        <li>Google and email sign-in with cross-device sync for username, theme color, and profile picture</li>
+        <li>Responsive UI with adaptive layouts across mobile, tablet, and desktop screens</li>
+      </ul>
+      <div class="divider"></div>
 
-<!-- ---- UNDER THE HOOD ---- -->
-<div class="card-section-label">Under the hood</div>
-<ul class="project-bullets">
-  <li>Flask backend organized into auth, service, and repository layers with shared authentication middleware across routes</li>
-  <li>PostgreSQL schema optimized for atomic XP and level updates using row-level locking for concurrent safety</li>
-  <li>Redis caching and distributed locking to reduce external API calls and prevent cache stampedes under load</li>
-  <li>Token-bucket rate limiter backed by PostgreSQL with daily refills and failure-safe quota rollback</li>
-  <li>Background jobs integrated with Firebase Cloud Messaging for push notifications and automatic invalid token cleanup</li>
-  <li>CI/CD pipeline via GitHub Actions for automated testing and deployment</li>
-</ul>
+      <!-- ---- UNDER THE HOOD ---- -->
+      <div class="card-section-label">Under the hood</div>
+      <ul class="project-bullets">
+        <li>Flask backend organized into auth, service, and repository layers with shared authentication middleware across routes</li>
+        <li>PostgreSQL schema optimized for atomic XP and level updates using row-level locking for concurrent safety</li>
+        <li>Redis caching and distributed locking to reduce external API calls and prevent cache stampedes under load</li>
+        <li>Token-bucket rate limiter backed by PostgreSQL with daily refills and failure-safe quota rollback</li>
+        <li>Background jobs integrated with Firebase Cloud Messaging for push notifications and automatic invalid token cleanup</li>
+        <li>CI/CD pipeline via GitHub Actions for automated testing and deployment</li>
+      </ul>
 
       <div class="divider"></div>
 
@@ -553,6 +625,56 @@
   <span class="footer-copy">&copy; 2026 Nicholas Dakis</span>
   <span class="status"><span class="status-dot"></span>Open to roles</span>
 </footer>
+
+<!-- ==================== SKILLS TICKER SCRIPT ==================== -->
+<div id="sk-tooltip"><span class="sk-tooltip-title" id="sk-tooltip-title"></span><span id="sk-tooltip-body"></span></div>
+
+<script>
+  const _skills = {
+    "PostgreSQL": "Stores all user data, food logs, streaks, achievements, and rate limit state across 10+ tables with PL/pgSQL stored functions handling XP updates, streak calculations, cooldown checks, and token consumption atomically",
+    "Redis": "Caches FatSecret API responses for 30+ days per food name and issues per-query distributed locks to prevent cache stampedes when multiple requests arrive for the same food simultaneously",
+    "Flask": "Serves 25+ POST endpoints across progression, food, POI, reminders, achievements, and settings with a shared _parse_and_auth() helper that deserializes the request body into a Pydantic schema and verifies the Firebase JWT in one step",
+    "Pydantic": "Validates 25+ incoming request bodies against typed schemas (e.g. coordinate bounds on POI check-ins, enum values for weight goal type) and defines typed response models returned from every route",
+    "Flutter Web": "Compiles to WASM/JS and serves as a PWA from GitHub Pages, with a custom service worker for FCM background messages, go_router for client-side navigation, and a ValueListenableBuilder at the root that rebuilds the full MaterialApp theme on color change",
+    "Dart": "State management via ValueNotifier and setState, all backend communication via http package with Firebase ID token headers, and utility classes like FoodLoggingHelper for parsing and scaling nutrition data",
+    "Row-level Locking": "Applied via SELECT FOR UPDATE inside 5+ PL/pgSQL functions on users, poi_visits, rate_limits, streaks, and achievement_progress to serialize concurrent requests at the database level",
+    "Atomic Transactions": "Each PL/pgSQL stored function wraps its lock, validation, and update steps in a single transaction so partial state is never committed — XP is only added if the cooldown check passes, streak only updated if the food log write succeeds",
+    "Distributed Locking": "Uses redis-py's redis.lock() on a per-food-name key with a 10s+ hold and 5s+ acquisition timeout so only one Gunicorn worker calls the FatSecret API per unique query while others wait or receive a 503",
+    "Token-bucket Rate Limiting": "Maintains a rate_limits row with current_tokens and last_refill_time; consume_tokens decrements under a row-level lock and resets every 24 hours, with refund_tokens restoring tokens when the FatSecret API call fails",
+    "Service Workers": "A custom firebase-messaging-sw.js registers with FCM and handles background messages via onBackgroundMessage, manually constructing showNotification calls for data-only payloads so reminders appear even when the app is closed",
+    "PWA": "Installable via Web App Manifest, runs in standalone mode without browser chrome on iOS and Android, with SafeArea in Flutter handling iOS safe area insets",
+    "pytest": "Tests cover XP curve calculations, multi-level advancement with carryover, daily snapshot timezone targeting, Haversine distance accuracy, and achievement tracking side effects — blocking deployment on failure",
+    "FCM": "The /send_reminders CRON route sends a MulticastMessage to all registered device tokens, then removes any that returned NOT_FOUND or invalid-registration-token errors from users.fcm_tokens",
+    "Firebase Admin SDK": "Handles auth.verify_id_token() to authenticate every API request and messaging.send_each_for_multicast() to deliver push notifications in a single batch call",
+    "GitHub Actions": "Two-job pipeline — first runs pytest, second (only if tests pass) builds the Flutter web app and deploys to GitHub Pages with secrets injected via encrypted GitHub Secrets"
+  };
+
+  const track = document.getElementById('sk-track');
+  const tooltip = document.getElementById('sk-tooltip');
+  const tooltipTitle = document.getElementById('sk-tooltip-title');
+  const tooltipBody = document.getElementById('sk-tooltip-body');
+  const entries = Object.entries(_skills);
+
+  [...entries, ...entries].forEach(([name, desc]) => {
+    const pill = document.createElement('span');
+    pill.className = 'skill-pill';
+    pill.textContent = name;
+    pill.addEventListener('mouseenter', e => {
+      tooltipTitle.textContent = 'Usage example: Level Up!';
+      tooltipBody.textContent = desc;
+      tooltip.style.opacity = '1';
+      positionTooltip(e);
+    });
+    pill.addEventListener('mousemove', positionTooltip);
+    pill.addEventListener('mouseleave', () => { tooltip.style.opacity = '0'; });
+    track.appendChild(pill);
+  });
+
+  function positionTooltip(e) {
+    tooltip.style.left = (e.clientX - 120) + 'px';
+    tooltip.style.top = (e.clientY - tooltip.offsetHeight - 12) + 'px';
+  }
+</script>
 
 </body>
 </html>
