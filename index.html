@@ -488,7 +488,97 @@
       background: #4ade80;
     }
 
-    /* --- responsive --- */
+    /* --- bento grid --- */
+    .bento-wrapper {
+      border-radius: 20px;
+      padding: 3px;
+      background: conic-gradient(from var(--border-angle), transparent 60%, rgba(90,90,240,0.4) 80%, rgba(180,100,255,0.3) 92%, transparent 100%);
+      animation: border-spin 8s linear infinite;
+      box-shadow: 0 0 32px rgba(90, 90, 240, 0.08), 0 0 80px rgba(140, 80, 255, 0.05);
+      margin-bottom: 10px;
+    }
+
+    .bento {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 2px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .bento-card {
+      background: #1e1e26;
+      padding: 22px 22px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.22s;
+    }
+
+    .bento-card:hover {
+      background: #21212e;
+    }
+
+    /* rounded corners only on outer cards */
+    .bento-main   { border-radius: 16px 0 0 0; }
+    .bento-stack  { border-radius: 0 16px 0 0; }
+    .bento-features { border-radius: 0 0 0 16px; }
+    .bento-hood   { border-radius: 0 0 16px 0; }
+
+    /* top-left: main info card */
+    .bento-main {
+      grid-column: 1;
+      grid-row: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* top-right: tech stack */
+    .bento-stack {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    /* bottom-left: features */
+    .bento-features {
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    /* bottom-right: under the hood */
+    .bento-hood {
+      grid-column: 2;
+      grid-row: 2;
+    }
+
+    .bento-card a.open-app-hint,
+    .open-app-hint {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--accent);
+      opacity: 0.6;
+      margin-top: auto;
+      padding-top: 16px;
+      transition: opacity 0.2s;
+    }
+
+    a.bento-card { cursor: pointer; text-decoration: none; }
+    a.bento-card:hover .open-app-hint { opacity: 1; }
+
+    @media (max-width: 560px) {
+      .bento {
+        grid-template-columns: 1fr;
+      }
+      .bento-main, .bento-stack, .bento-features, .bento-hood {
+        grid-column: 1;
+        grid-row: auto;
+        border-radius: 0;
+      }
+      .bento-main { border-radius: 16px 16px 0 0; }
+      .bento-hood { border-radius: 0 0 16px 16px; }
+    }
     @media (max-width: 480px) {
       .wrap { padding: 40px 16px 100px; }
       .links { flex-direction: column; }
@@ -561,66 +651,71 @@
   <section class="section fade-in">
     <div class="section-label">Projects</div>
 
-    <!-- level up card — clicking this opens the live web app -->
-    <a href="/level_up" class="project-card">
+    <!-- bento grid -->
+    <div class="bento-wrapper">
+    <div class="bento">
 
-      <!-- name on left, beta tag on far right -->
-      <div class="project-top">
-        <div class="project-name">Level Up!</div>
-        <span class="beta-tag">BETA</span>
+      <!-- top-left: main info — whole card links to app -->
+      <a href="/level_up" target="_blank" class="bento-card bento-main">
+        <div class="project-top">
+          <div class="project-name">Level Up!</div>
+          <span class="beta-tag">BETA</span>
+        </div>
+        <div class="project-subtitle">Gamified health and fitness app</div>
+        <div class="platform-pills">
+          <span class="platform-pill">Web</span>
+          <span class="platform-pill">PWA</span>
+          <span class="platform-pill">Android soon</span>
+        </div>
+        <span class="open-app-hint">&#8599; Click to try it out</span>
+      </a>
+
+      <!-- top-right: tech stack -->
+      <div class="bento-card bento-stack">
+        <div class="card-section-label">Tech Stack</div>
+        <div class="tag-row">
+          <span class="tag">Flutter</span>
+          <span class="tag">Python Flask</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">Redis</span>
+          <span class="tag">Firebase</span>
+          <span class="tag">GitHub Actions</span>
+          <span class="tag">CI/CD</span>
+          <span class="tag">FCM</span>
+          <span class="tag">Pydantic</span>
+          <span class="tag">pytest</span>
+        </div>
       </div>
 
-      <div class="project-subtitle">Gamified health and fitness app</div>
-
-      <!-- Platform availability -->
-      <div class="platform-pills">
-        <span class="platform-pill">Web (all devices)</span>
-        <span class="platform-pill">PWA (installable, native-like experience)</span>
-        <span class="platform-pill">Android (coming soon)</span>
+      <!-- bottom-left: features -->
+      <div class="bento-card bento-features">
+        <div class="card-section-label">Features</div>
+        <ul class="project-bullets" style="margin-bottom:0;">
+          <li>Log meals via barcode scan, search, or manual entry with full macro breakdown</li>
+          <li>Calorie and macro goal tracking with live progress</li>
+          <li>Analytics tab for daily or range-based nutrition review</li>
+          <li>Calorie calculator with BMR and TDEE breakdowns</li>
+          <li>Check in to nearby locations on an interactive map to earn XP</li>
+          <li>Badges, leaderboard, daily XP rewards, and streak tracking</li>
+          <li>Google and email sign-in with cross-device sync</li>
+        </ul>
       </div>
 
-      <!-- ---- FEATURES ---- -->
-      <div class="card-section-label">Features</div>
-      <ul class="project-bullets">
-        <li>Log meals via barcode scan, search, or manual entry with full macro breakdown and serving size adjustment</li>
-        <li>Set calorie and macro goals with live progress tracking in the food logging tab</li>
-        <li>Analytics tab for reviewing daily or range-based calorie and macro intake</li>
-        <li>Calorie calculator (Harris-Benedict, Mifflin-St Jeor) with BMR and TDEE breakdowns in imperial and metric units</li>
-        <li>Check in to nearby locations on an interactive map to earn XP with 24-hour per-location cooldowns</li>
-        <li>Badges, global leaderboard, daily XP rewards, streak tracking, and push notifications</li>
-        <li>Google and email sign-in with cross-device sync for username, theme color, and profile picture</li>
-        <li>Responsive UI with adaptive layouts across mobile, tablet, and desktop screens</li>
-      </ul>
-      <div class="divider"></div>
-
-      <!-- ---- UNDER THE HOOD ---- -->
-      <div class="card-section-label">Under the hood</div>
-      <ul class="project-bullets">
-        <li>Flask backend organized into auth, service, and repository layers with shared authentication middleware across routes</li>
-        <li>PostgreSQL schema optimized for atomic XP and level updates using row-level locking for concurrent safety</li>
-        <li>Redis caching and distributed locking to reduce external API calls and prevent cache stampedes under load</li>
-        <li>Token-bucket rate limiter backed by PostgreSQL with daily refills and failure-safe quota rollback</li>
-        <li>Background jobs integrated with Firebase Cloud Messaging for push notifications and automatic invalid token cleanup</li>
-        <li>CI/CD pipeline via GitHub Actions for automated testing and deployment</li>
-      </ul>
-
-      <div class="divider"></div>
-
-      <!-- tech stack tags -->
-      <div class="tag-row">
-        <span class="tag">Flutter</span>
-        <span class="tag">Python Flask</span>
-        <span class="tag">PostgreSQL</span>
-        <span class="tag">Redis</span>
-        <span class="tag">Firebase</span>
-        <span class="tag">GitHub Actions</span>
-        <span class="tag">CI/CD</span>
-        <span class="tag">FCM</span>
-        <span class="tag">Pydantic</span>
-        <span class="tag">pytest</span>
+      <!-- bottom-right: under the hood -->
+      <div class="bento-card bento-hood">
+        <div class="card-section-label">Under the hood</div>
+        <ul class="project-bullets" style="margin-bottom:0;">
+          <li>3-layer Flask backend with shared auth middleware across all routes</li>
+          <li>PostgreSQL stored procedures with row-level locking for atomic XP updates</li>
+          <li>Redis caching with distributed locking to prevent cache stampedes</li>
+          <li>Token-bucket rate limiter with daily refills and failure-safe rollback</li>
+          <li>FCM push notifications with automatic stale token pruning</li>
+          <li>GitHub Actions CI/CD — deploys only on passing pytest suite</li>
+        </ul>
       </div>
 
-    </a>
+    </div>
+    </div> <!-- end bento-wrapper -->
 
     <!-- repo / readme / wiki buttons sit below the card as their own row -->
     <div class="project-links">
