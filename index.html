@@ -64,31 +64,7 @@
       overflow-x: hidden;
     }
 
-    /* --- ambient glow top-left --- */
-    body::before {
-      content: '';
-      position: fixed;
-      top: -200px;
-      left: -150px;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(90, 90, 240, 0.07) 0%, transparent 65%);
-      pointer-events: none;
-      z-index: 0;
-    }
 
-    /* --- ambient glow bottom-right --- */
-    body::after {
-      content: '';
-      position: fixed;
-      bottom: -200px;
-      right: -150px;
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(140, 80, 255, 0.05) 0%, transparent 65%);
-      pointer-events: none;
-      z-index: 0;
-    }
 
     a { color: inherit; text-decoration: none; }
 
@@ -486,15 +462,67 @@
       height: 5px;
       border-radius: 50%;
       background: #4ade80;
+      position: relative;
+    }
+
+    /* ping ripple on status dot */
+    .status-dot::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      background: #4ade80;
+      opacity: 0;
+      animation: ping 2s ease-out infinite;
+    }
+
+    @keyframes ping {
+      0%   { transform: scale(1);   opacity: 0.6; }
+      100% { transform: scale(2.8); opacity: 0; }
+    }
+
+    /* --- typing animation on hero sub --- */
+    .hero-sub {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    /* --- cursor spotlight on bento cards --- */
+    .bento-card .spotlight {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+      background: radial-gradient(circle 120px at var(--mx, 50%) var(--my, 50%), rgba(123,123,245,0.07), transparent 70%);
+    }
+
+    .bento-card:hover .spotlight {
+      opacity: 1;
+    }
+
+    /* --- bento stagger fade-in --- */
+    .bento-card {
+      opacity: 0;
+      transform: scale(1.012) translateY(10px);
+      transition: background 0.22s, transform 0.35s ease, opacity 0.35s ease;
+    }
+
+    .bento-card.bento-visible {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+
+    .bento-card:hover {
+      transform: scale(1.012) translateY(0) !important;
     }
 
     /* --- bento grid --- */
     .bento-wrapper {
       border-radius: 20px;
-      padding: 3px;
-(180,100,255,0.12) 92%, transparent 100%);
-      animation: border-spin 8s linear infinite;
-      box-shadow: 0 0 32px rgba(90, 90, 240, 0.08), 0 0 80px rgba(140, 80, 255, 0.05);
+      border: 1px solid rgba(123, 123, 245, 0.25);
       margin-bottom: 10px;
     }
 
@@ -513,11 +541,17 @@
       padding: 22px 22px;
       position: relative;
       overflow: hidden;
-      transition: background 0.22s;
+      transition: background 0.22s, transform 0.22s;
+      /* dot texture */
+      background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 20px 20px;
+      background-color: #1e1e26;
     }
 
     .bento-card:hover {
-      background: #21212e;
+      background-color: #21212e;
+      transform: scale(1.012);
+      z-index: 1;
     }
 
     /* rounded corners only on outer cards */
@@ -594,7 +628,7 @@
   <!-- ==================== HERO ==================== -->
   <header class="hero fade-in">
     <h1>Nicholas Dakis</h1>
-    <p class="hero-sub">CS student at Queens College interested in backend development.</p>
+    <p class="hero-sub" id="hero-sub"></p>
     <div class="links">
 
       <!-- github logo -->
@@ -658,6 +692,7 @@
 
       <!-- top-left: main info — whole card links to app -->
       <a href="/level_up" target="_blank" class="bento-card bento-main">
+        <div class="spotlight"></div>
         <div class="project-top">
           <div class="project-name">Level Up!</div>
           <span class="beta-tag">BETA</span>
@@ -673,6 +708,7 @@
 
       <!-- top-right: tech stack -->
       <div class="bento-card bento-stack">
+        <div class="spotlight"></div>
         <div class="card-section-label">Tech Stack</div>
         <div class="tag-row">
           <span class="tag">Flutter</span>
@@ -690,6 +726,7 @@
 
       <!-- bottom-left: features -->
       <div class="bento-card bento-features">
+        <div class="spotlight"></div>
         <div class="card-section-label">Features</div>
         <ul class="project-bullets" style="margin-bottom:0;">
           <li>Log meals via barcode scan, search, or manual entry with full macro breakdown</li>
@@ -704,6 +741,7 @@
 
       <!-- bottom-right: under the hood -->
       <div class="bento-card bento-hood">
+        <div class="spotlight"></div>
         <div class="card-section-label">Under the hood</div>
         <ul class="project-bullets" style="margin-bottom:0;">
           <li>3-layer Flask backend with shared auth middleware across all routes</li>
@@ -852,7 +890,69 @@
     tooltip.style.top = (e.clientY - tooltip.offsetHeight - 12) + 'px';
   }
 
-  // --- scroll fade-in ---
+  // --- hero sub typer with 40% typo easter egg ---
+  (function() {
+    const el = document.getElementById('hero-sub');
+    const final = 'CS student at Queens College interested in backend development.';
+    const typoChance = 0.4;
+    const doTypo = Math.random() < typoChance;
+
+    // pick a random insertion point in the middle third of the string
+    const typoAt = doTypo
+      ? Math.floor(final.length * 0.3 + Math.random() * final.length * 0.4)
+      : -1;
+
+    // generate a random wrong character (nearby on keyboard)
+    const neighbors = {
+      a:'sqwz', b:'vghn', c:'xdfv', d:'serf', e:'wdsr', f:'drtg', g:'ftyhb',
+      h:'gyujn', i:'ujko', j:'huikm', k:'jilos', l:'kop', m:'njk', n:'bhjm',
+      o:'iklp', p:'ol', q:'wa', r:'edfgt', s:'awedz', t:'rfyg', u:'yhji',
+      v:'cfgb', w:'qase', x:'zsdc', y:'tghu', z:'asx', ' ':'  '
+    };
+    let typoChar = '';
+    if (doTypo) {
+      const base = final[typoAt].toLowerCase();
+      const pool = neighbors[base] || 'abcdefghijklmnopqrstuvwxyz';
+      typoChar = pool[Math.floor(Math.random() * pool.length)];
+    }
+
+    let i = 0;
+    let typed = '';
+    let phase = 'typing'; // typing | pausing | deleting | retyping
+
+    function tick() {
+      if (phase === 'typing') {
+        if (i < final.length) {
+          typed += final[i];
+          el.textContent = typed;
+          i++;
+          if (doTypo && i === typoAt) {
+            // inject typo
+            typed += typoChar;
+            el.textContent = typed;
+            phase = 'pausing';
+            setTimeout(tick, 200); // pause like reacting to a mistake
+            return;
+          }
+          setTimeout(tick, 10 + Math.random() * 30);
+        }
+      } else if (phase === 'pausing') {
+        phase = 'deleting';
+        setTimeout(tick, 80);
+      } else if (phase === 'deleting') {
+        // backspace the typo char
+        typed = typed.slice(0, -1);
+        el.textContent = typed;
+        phase = 'retyping';
+        setTimeout(tick, 90);
+      } else if (phase === 'retyping') {
+        phase = 'typing';
+        setTimeout(tick, 38 + Math.random() * 30);
+      }
+    }
+
+    setTimeout(tick, 400);
+  })();
   const observer = new IntersectionObserver(entries => {
     entries.forEach(el => {
       if (el.isIntersecting) {
@@ -865,6 +965,33 @@
   document.querySelectorAll('.fade-in').forEach((el, i) => {
     el.style.transitionDelay = `${i * 0.08}s`;
     observer.observe(el);
+  });
+
+  // --- bento stagger fade-in ---
+  const bentoObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const cards = entry.target.querySelectorAll('.bento-card');
+        cards.forEach((card, i) => {
+          setTimeout(() => card.classList.add('bento-visible'), i * 80);
+        });
+        bentoObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  const bentoEl = document.querySelector('.bento');
+  if (bentoEl) bentoObserver.observe(bentoEl);
+
+  // --- cursor spotlight on bento cards ---
+  document.querySelectorAll('.bento-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      card.style.setProperty('--mx', x + '%');
+      card.style.setProperty('--my', y + '%');
+    });
   });
 
 </script>
