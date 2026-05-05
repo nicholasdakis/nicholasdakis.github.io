@@ -27,6 +27,7 @@
   <title>Nicholas Dakis</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Space+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
   <link rel="icon" href="/favicons/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
@@ -171,7 +172,7 @@
       display: flex;
       gap: 8px;
       width: max-content;
-      animation: sk-scroll 55s linear infinite;
+      animation: sk-scroll 28s linear infinite;
     }
 
     .sk-wrap:hover .sk-track { animation-play-state: paused; }
@@ -190,6 +191,14 @@
       flex-shrink: 0;
       cursor: default;
       transition: border-color 0.2s, color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .skill-pill i {
+      font-size: 13px;
+      line-height: 1;
     }
 
     .skill-pill:hover {
@@ -565,6 +574,7 @@
         <span class="tag">CI/CD</span>
         <span class="tag">FCM</span>
         <span class="tag">Pydantic</span>
+        <span class="tag">pytest</span>
       </div>
 
     </a>
@@ -651,10 +661,25 @@
     "Token-bucket Rate Limiting": "Maintains a rate_limits row with current_tokens and last_refill_time; consume_tokens decrements under a row-level lock and resets every 24 hours, with refund_tokens restoring tokens when the FatSecret API call fails",
     "Service Workers": "A custom firebase-messaging-sw.js registers with FCM and handles background messages via onBackgroundMessage, manually constructing showNotification calls for data-only payloads so reminders appear even when the app is closed",
     "PWA": "Installable via Web App Manifest, runs in standalone mode without browser chrome on iOS and Android, with SafeArea in Flutter handling iOS safe area insets",
-    "pytest": "Tests cover XP curve calculations, multi-level advancement with carryover, daily snapshot timezone targeting, Haversine distance accuracy, and achievement tracking side effects — blocking deployment on failure",
+    "pytest": "89 tests across the services layer with 84% coverage, using dependency injection and unittest.mock to isolate business logic from PostgreSQL, Redis, Firebase, and external APIs — suite blocks deployment on failure via GitHub Actions",
     "FCM": "The /send_reminders CRON route sends a MulticastMessage to all registered device tokens, then removes any that returned NOT_FOUND or invalid-registration-token errors from users.fcm_tokens",
     "Firebase Admin SDK": "Handles auth.verify_id_token() to authenticate every API request and messaging.send_each_for_multicast() to deliver push notifications in a single batch call",
     "GitHub Actions": "Two-job pipeline — first runs pytest, second (only if tests pass) builds the Flutter web app and deploys to GitHub Pages with secrets injected via encrypted GitHub Secrets"
+  };
+
+  const _skillIcons = {
+    "PostgreSQL": "devicon-postgresql-plain",
+    "Redis": "devicon-redis-plain",
+    "Flask": "devicon-flask-original",
+    "Pydantic": "devicon-python-plain",
+    "Flutter Web": "devicon-flutter-plain",
+    "Dart": "devicon-dart-plain",
+    "pytest": "devicon-pytest-plain",
+    "FCM": "devicon-firebase-plain",
+    "Firebase Admin SDK": "devicon-firebase-plain",
+    "GitHub Actions": "devicon-github-original",
+    "Service Workers": "devicon-javascript-plain",
+    "PWA": "devicon-chrome-plain",
   };
 
   const track = document.getElementById('sk-track');
@@ -666,7 +691,12 @@
   [...entries, ...entries].forEach(([name, desc]) => {
     const pill = document.createElement('span');
     pill.className = 'skill-pill';
-    pill.textContent = name;
+    if (_skillIcons[name]) {
+      const icon = document.createElement('i');
+      icon.className = _skillIcons[name];
+      pill.appendChild(icon);
+    }
+    pill.appendChild(document.createTextNode(name));
     pill.addEventListener('mouseenter', e => {
       tooltipTitle.textContent = 'Usage example: Level Up!';
       tooltipBody.textContent = desc;
