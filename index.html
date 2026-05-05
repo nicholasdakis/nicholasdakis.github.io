@@ -8,10 +8,9 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-  
     gtag('config', 'G-C6H2BNY6K3');
   </script>
-  
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google-adsense-account" content="ca-pub-4003172698560190">
@@ -23,10 +22,10 @@
   <meta property="og:description" content="Computer science student building software projects." />
   <meta property="og:url" content="https://nicholasdakis.com" />
   <meta property="og:type" content="website" />
-  
+
   <title>Nicholas Dakis</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Space+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
   <link rel="icon" href="/favicons/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
@@ -43,8 +42,8 @@
       --accent: #7b7bf5;
       --text: #e8e8e8;
       --muted: #b0b0c0;
-      --border: rgba(255, 255, 255, 0.08);
-      --glass: rgba(255, 255, 255, 0.045);
+      --border: rgba(255,255,255,0.08);
+      --glass: rgba(255,255,255,0.045);
       --font: 'Space Grotesk', sans-serif;
       --mono: 'Space Mono', monospace;
     }
@@ -60,7 +59,6 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      position: relative;
       overflow-x: hidden;
     }
 
@@ -76,7 +74,7 @@
       z-index: 1;
     }
 
-    /* --- hero --- */
+    /* ---- HERO ---- */
     .hero { margin-bottom: 64px; }
 
     .hero h1 {
@@ -98,8 +96,8 @@
       line-height: 1.6;
     }
 
-    /* --- hero link buttons (GitHub, LinkedIn) --- */
-    .links { display: flex; gap: 12px; }
+    /* ---- HERO LINKS ---- */
+    .links { display: flex; gap: 12px; flex-wrap: wrap; }
 
     .link-btn {
       display: inline-flex;
@@ -118,20 +116,15 @@
     }
 
     /* accent color on hover */
-    .link-btn:hover {
-      color: var(--accent);
-      border-color: var(--accent);
-    }
+    .link-btn:hover { color: var(--accent); border-color: var(--accent); }
 
     /* svg icons inside hero buttons */
     .link-btn svg {
-      width: 13px;
-      height: 13px;
-      fill: currentColor;
-      flex-shrink: 0;
+      width: 13px; height: 13px;
+      fill: currentColor; flex-shrink: 0;
     }
 
-    /* --- section label --- */
+    /* ---- SECTION LABEL ---- */
     .section-label {
       font-family: var(--mono);
       font-size: 10px;
@@ -152,7 +145,7 @@
       background: var(--border);
     }
 
-    /* --- skills ticker --- */
+    /* ---- SKILLS TICKER ---- */
     .sk-wrap {
       overflow: hidden;
       mask-image: linear-gradient(to right, transparent, black 60px, black calc(100% - 60px), transparent);
@@ -187,23 +180,17 @@
       gap: 6px;
     }
 
-    .skill-pill i {
-      font-size: 13px;
-      line-height: 1;
-    }
+    .skill-pill i { font-size: 13px; line-height: 1; }
 
-    .skill-pill:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
+    .skill-pill:hover { border-color: var(--accent); color: var(--accent); }
 
-    /* --- skill tooltip --- */
+    /* ---- TOOLTIP ---- */
     #sk-tooltip {
       position: fixed;
       pointer-events: none;
       opacity: 0;
       background: #1e1e24;
-      border: 1px solid rgba(90, 90, 240, 0.3);
+      border: 1px solid rgba(90,90,240,0.3);
       border-radius: 8px;
       padding: 10px 13px;
       width: 240px;
@@ -214,37 +201,34 @@
       z-index: 9999;
       transition: opacity 0.15s;
       white-space: normal;
+      /* Clamp to viewport edges */
+      max-width: min(240px, calc(100vw - 24px));
     }
 
     .sk-tooltip-title {
       display: block;
       color: var(--accent);
-      font-weight: 500;
+      font-weight: 700;
       margin-bottom: 4px;
       font-size: 10px;
     }
 
-    /* --- scroll fade-in --- */
+    /* ---- SCROLL FADE-IN ---- */
     .fade-in {
       opacity: 0;
       transform: translateY(22px);
       transition: opacity 0.55s ease, transform 0.55s ease;
     }
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
 
-    /* --- animated gradient card border --- */
+    /* ---- ANIMATED CARD BORDER ---- */
     @property --border-angle {
       syntax: '<angle>';
       inherits: false;
       initial-value: 0deg;
     }
 
-    @keyframes border-spin {
-      to { --border-angle: 360deg; }
-    }
+    @keyframes border-spin { to { --border-angle: 360deg; } }
 
     .project-card {
       display: block;
@@ -276,9 +260,7 @@
       pointer-events: none;
     }
 
-    .project-card:hover {
-      transform: translateY(-2px);
-    }
+    .project-card:hover { transform: translateY(-2px); }
 
     /* --- card header: name on left, beta tag on far right --- */
     .project-top {
@@ -294,10 +276,10 @@
       font-family: var(--mono);
       font-size: 9px;
       color: var(--accent);
-      background: rgba(90, 90, 240, 0.1);
+      background: rgba(90,90,240,0.1);
       padding: 3px 8px;
       border-radius: 4px;
-      border: 1px solid rgba(90, 90, 240, 0.2);
+      border: 1px solid rgba(90,90,240,0.2);
       letter-spacing: 0.05em;
     }
 
@@ -310,12 +292,7 @@
     }
 
     /* --- platform pills row: two separate pills so neither wraps --- */
-    .platform-pills {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
-    }
+    .platform-pills { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
 
     .platform-pill {
       display: inline-flex;
@@ -324,17 +301,14 @@
       font-family: var(--mono);
       font-size: 9px;
       color: var(--accent);
-      background: rgba(123, 123, 245, 0.12);
-      border: 1px solid rgba(123, 123, 245, 0.28);
+      background: rgba(123,123,245,0.12);
+      border: 1px solid rgba(123,123,245,0.28);
       padding: 4px 10px;
       border-radius: 100px;
       white-space: nowrap;
     }
 
-    .platform-pill::before {
-      content: '◆';
-      font-size: 5px;
-    }
+    .platform-pill::before { content: '◆'; font-size: 5px; }
 
     /* --- card sub-section label (Features / Under the hood) --- */
     .card-section-label {
@@ -374,11 +348,7 @@
     }
 
     /* --- divider --- */
-    .divider {
-      height: 1px;
-      background: var(--border);
-      margin-bottom: 16px;
-    }
+    .divider { height: 1px; background: var(--border); margin-bottom: 16px; }
 
     /* --- tech stack tags --- */
     .tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -387,19 +357,14 @@
       font-family: var(--mono);
       font-size: 10px;
       color: var(--muted);
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(255,255,255,0.03);
       border: 1px solid var(--border);
       padding: 4px 10px;
       border-radius: 100px;
     }
 
-    /* --- repo / readme / wiki buttons (below the card) --- */
-    .project-links {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
-    }
+    /* ---- PROJECT LINK BUTTONS ---- */
+    .project-links { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 40px; }
 
     .project-link-btn {
       display: inline-flex;
@@ -417,19 +382,14 @@
       transition: color 0.2s, border-color 0.2s;
     }
 
-    .project-link-btn:hover {
-      color: var(--accent);
-      border-color: var(--accent);
-    }
+    .project-link-btn:hover { color: var(--accent); border-color: var(--accent); }
 
     .project-link-btn svg {
-      width: 12px;
-      height: 12px;
-      fill: currentColor;
-      flex-shrink: 0;
+      width: 12px; height: 12px;
+      fill: currentColor; flex-shrink: 0;
     }
 
-    /* --- footer --- */
+    /* ---- FOOTER ---- */
     .footer {
       position: fixed;
       bottom: 0; left: 0;
@@ -447,20 +407,23 @@
 
     .footer-copy { opacity: 0.4; }
 
-    /* --- open to roles indicator --- */
+    /* ---- STATUS DOT — now a link ---- */
     .status {
       display: flex;
       align-items: center;
-      gap: 6px;
-      opacity: 0.5;
+      gap: 14px;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+      cursor: pointer;
     }
+    .status:hover { opacity: 1; }
 
     .status-dot {
-      width: 5px;
-      height: 5px;
+      width: 5px; height: 5px;
       border-radius: 50%;
       background: #4ade80;
       position: relative;
+      flex-shrink: 0;
     }
 
     /* ping ripple on status dot */
@@ -476,10 +439,10 @@
 
     @keyframes ping {
       0%   { transform: scale(1);   opacity: 0.6; }
-      100% { transform: scale(2.8); opacity: 0; }
+      100% { transform: scale(2.2); opacity: 0; }
     }
 
-    /* --- cursor spotlight on bento cards --- */
+    /* ---- BENTO ---- */
     .bento-card .spotlight {
       position: absolute;
       inset: 0;
@@ -489,9 +452,7 @@
       background: radial-gradient(circle 120px at var(--mx, 50%) var(--my, 50%), rgba(123,123,245,0.07), transparent 70%);
     }
 
-    .bento-card:hover .spotlight {
-      opacity: 1;
-    }
+    .bento-card:hover .spotlight { opacity: 1; }
 
     /* --- bento stagger fade-in --- */
     .bento-card {
@@ -500,19 +461,13 @@
       transition: background 0.22s, transform 0.35s ease, opacity 0.35s ease;
     }
 
-    .bento-card.bento-visible {
-      opacity: 1;
-      transform: scale(1) translateY(0);
-    }
-
-    .bento-card:hover {
-      transform: scale(1.012) translateY(0) !important;
-    }
+    .bento-card.bento-visible { opacity: 1; transform: scale(1) translateY(0); }
+    .bento-card:hover { transform: scale(1.012) translateY(0) !important; }
 
     /* --- bento grid --- */
     .bento-wrapper {
       border-radius: 20px;
-      border: 1px solid rgba(123, 123, 245, 0.25);
+      border: 1px solid rgba(123,123,245,0.25);
       margin-bottom: 10px;
     }
 
@@ -528,53 +483,20 @@
 
     .bento-card {
       background: #1e1e26;
-      padding: 22px 22px;
+      padding: 22px;
       position: relative;
       overflow: hidden;
-      transition: background 0.22s, transform 0.22s;
-      /* dot texture */
       background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
       background-size: 20px 20px;
       background-color: #1e1e26;
     }
 
-    .bento-card:hover {
-      background-color: #21212e;
-      transform: scale(1.012);
-      z-index: 1;
-    }
+    .bento-card:hover { background-color: #21212e; z-index: 1; }
 
-    /* rounded corners only on outer cards */
-    .bento-main   { border-radius: 16px 0 0 0; }
-    .bento-stack  { border-radius: 0 16px 0 0; }
-    .bento-features { border-radius: 0 0 0 16px; }
-    .bento-hood   { border-radius: 0 0 16px 0; }
-
-    /* top-left: main info card */
-    .bento-main {
-      grid-column: 1;
-      grid-row: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* top-right: tech stack */
-    .bento-stack {
-      grid-column: 2;
-      grid-row: 1;
-    }
-
-    /* bottom-left: features */
-    .bento-features {
-      grid-column: 1;
-      grid-row: 2;
-    }
-
-    /* bottom-right: under the hood */
-    .bento-hood {
-      grid-column: 2;
-      grid-row: 2;
-    }
+    .bento-main   { border-radius: 16px 0 0 0; grid-column: 1; grid-row: 1; display: flex; flex-direction: column; }
+    .bento-stack  { border-radius: 0 16px 0 0; grid-column: 2; grid-row: 1; }
+    .bento-features { border-radius: 0 0 0 16px; grid-column: 1; grid-row: 2; }
+    .bento-hood   { border-radius: 0 0 16px 0; grid-column: 2; grid-row: 2; }
 
     .bento-card a.open-app-hint,
     .open-app-hint {
@@ -586,27 +508,23 @@
       margin-top: auto;
       padding-top: 16px;
       transition: opacity 0.2s;
-      font-weight: 500;
+      font-weight: 700;
     }
 
     a.bento-card { cursor: pointer; text-decoration: none; }
     a.bento-card:hover .open-app-hint { opacity: 1; }
 
     @media (max-width: 560px) {
-      .bento {
-        grid-template-columns: 1fr;
-      }
+      .bento { grid-template-columns: 1fr; }
       .bento-main, .bento-stack, .bento-features, .bento-hood {
-        grid-column: 1;
-        grid-row: auto;
-        border-radius: 0;
+        grid-column: 1; grid-row: auto; border-radius: 0;
       }
       .bento-main { border-radius: 16px 16px 0 0; }
       .bento-hood { border-radius: 0 0 16px 16px; }
     }
+
     @media (max-width: 480px) {
       .wrap { padding: 40px 16px 100px; }
-      .links { flex-direction: column; }
       .project-links { flex-direction: column; }
     }
   </style>
@@ -615,188 +533,129 @@
 
 <div class="wrap">
 
-  <!-- ==================== HERO ==================== -->
+  <!-- HERO -->
   <header class="hero fade-in">
     <h1>Nicholas Dakis</h1>
     <p class="hero-sub">CS student at Queens College interested in backend development.</p>
     <div class="links">
 
-      <!-- github logo -->
-      <a href="https://github.com/nicholasdakis" target="_blank" class="link-btn">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577
-            0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755
-            -1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305
-            3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93
-            0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176
-            0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405
-            1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23
-            .645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22
-            0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22
-            0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57
-            C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/>
-        </svg>
+      <a href="https://github.com/nicholasdakis" target="_blank" class="link-btn" aria-label="GitHub profile">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>
         GitHub
       </a>
 
-      <!-- linkedin logo -->
-      <a href="https://linkedin.com/in/nicholasdakis" target="_blank" class="link-btn">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037
-            -1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046
-            c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286z
-            M5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065z
-            m1.782 13.019H3.555V9h3.564v11.452z
-            M22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451
-            C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-        </svg>
+      <a href="https://linkedin.com/in/nicholasdakis" target="_blank" class="link-btn" aria-label="LinkedIn profile">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
         LinkedIn
       </a>
 
-      <!-- email -->
-      <a href="mailto:nicholasdakis@outlook.com" class="link-btn">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
-        </svg>
+      <a href="mailto:nicholasdakis@outlook.com" class="link-btn" aria-label="Send email">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
         Email
       </a>
 
     </div>
   </header>
 
-  <!-- ==================== SKILLS ==================== -->
-  <section style="margin-bottom: 48px;" class="fade-in">
+  <!-- SKILLS -->
+  <section style="margin-bottom: 48px;" class="fade-in" aria-label="Skills">
     <div class="section-label">Skills</div>
-    <div class="sk-wrap">
+    <div class="sk-wrap" role="region" aria-label="Scrolling skills list">
       <div class="sk-track" id="sk-track"></div>
     </div>
   </section>
 
-  <!-- ==================== PROJECTS ==================== -->
-  <section class="section fade-in">
+  <!-- PROJECTS -->
+  <section class="section fade-in" aria-label="Projects">
     <div class="section-label">Projects</div>
 
-    <!-- bento grid -->
     <div class="bento-wrapper">
-    <div class="bento">
+      <div class="bento" role="list">
 
-      <!-- top-left: main info — whole card links to app -->
-      <a href="/level_up" target="_blank" class="bento-card bento-main">
-        <div class="spotlight"></div>
-        <div class="project-top">
-          <div class="project-name">Level Up!</div>
-          <span class="beta-tag">BETA</span>
+        <!-- top-left: main info -->
+        <a href="/level_up" target="_blank" class="bento-card bento-main" role="listitem" aria-label="Level Up app — open the app">
+          <div class="spotlight" aria-hidden="true"></div>
+          <div class="project-top">
+            <div class="project-name">Level Up!</div>
+            <span class="beta-tag">BETA</span>
+          </div>
+          <div class="project-subtitle">Gamified health and fitness app</div>
+          <div class="platform-pills" aria-label="Available platforms">
+            <span class="platform-pill">Web</span>
+            <span class="platform-pill">PWA</span>
+            <span class="platform-pill">Android soon</span>
+          </div>
+          <span class="open-app-hint" aria-hidden="true">↗ Try it yourself</span>
+        </a>
+
+        <!-- top-right: tech stack -->
+        <div class="bento-card bento-stack" role="listitem">
+          <div class="spotlight" aria-hidden="true"></div>
+          <div class="card-section-label">Tech Stack</div>
+          <div class="tag-row" aria-label="Technologies used">
+            <span class="tag">Flutter</span>
+            <span class="tag">Python Flask</span>
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">Redis</span>
+            <span class="tag">Firebase</span>
+            <span class="tag">GitHub Actions</span>
+            <span class="tag">CI/CD</span>
+            <span class="tag">FCM</span>
+            <span class="tag">Pydantic</span>
+            <span class="tag">pytest</span>
+          </div>
         </div>
-        <div class="project-subtitle">Gamified health and fitness app</div>
-        <div class="platform-pills">
-          <span class="platform-pill">Web</span>
-          <span class="platform-pill">PWA</span>
-          <span class="platform-pill">Android soon</span>
+
+        <!-- bottom-left: features -->
+        <div class="bento-card bento-features" role="listitem">
+          <div class="spotlight" aria-hidden="true"></div>
+          <div class="card-section-label">Features</div>
+          <ul class="project-bullets" style="margin-bottom:0;">
+            <li>Log meals via barcode scan, search, or manual entry with full macro breakdown</li>
+            <li>Calorie and macro goal tracking with live progress</li>
+            <li>Analytics tab for daily or range-based nutrition review</li>
+            <li>Calorie calculator with BMR and TDEE breakdowns</li>
+            <li>Check in to nearby locations on an interactive map to earn XP</li>
+            <li>Badges, leaderboard, daily XP rewards, and streak tracking</li>
+            <li>Google and email sign-in with cross-device sync</li>
+          </ul>
         </div>
-        <span class="open-app-hint">↗ Try it yourself</span>
-      </a>
 
-      <!-- top-right: tech stack -->
-      <div class="bento-card bento-stack">
-        <div class="spotlight"></div>
-        <div class="card-section-label">Tech Stack</div>
-        <div class="tag-row">
-          <span class="tag">Flutter</span>
-          <span class="tag">Python Flask</span>
-          <span class="tag">PostgreSQL</span>
-          <span class="tag">Redis</span>
-          <span class="tag">Firebase</span>
-          <span class="tag">GitHub Actions</span>
-          <span class="tag">CI/CD</span>
-          <span class="tag">FCM</span>
-          <span class="tag">Pydantic</span>
-          <span class="tag">pytest</span>
+        <!-- bottom-right: under the hood -->
+        <div class="bento-card bento-hood" role="listitem">
+          <div class="spotlight" aria-hidden="true"></div>
+          <div class="card-section-label">Under the hood</div>
+          <ul class="project-bullets" style="margin-bottom:0;">
+            <li>3-layer Flask backend with shared auth middleware across all routes</li>
+            <li>PostgreSQL stored procedures with row-level locking for atomic XP updates</li>
+            <li>Redis caching with distributed locking to prevent cache stampedes</li>
+            <li>Token-bucket rate limiter with daily refills and failure-safe rollback</li>
+            <li>FCM push notifications with automatic stale token pruning</li>
+            <li>GitHub Actions CI/CD — deploys only on passing pytest suite</li>
+          </ul>
         </div>
-      </div>
 
-      <!-- bottom-left: features -->
-      <div class="bento-card bento-features">
-        <div class="spotlight"></div>
-        <div class="card-section-label">Features</div>
-        <ul class="project-bullets" style="margin-bottom:0;">
-          <li>Log meals via barcode scan, search, or manual entry with full macro breakdown</li>
-          <li>Calorie and macro goal tracking with live progress</li>
-          <li>Analytics tab for daily or range-based nutrition review</li>
-          <li>Calorie calculator with BMR and TDEE breakdowns</li>
-          <li>Check in to nearby locations on an interactive map to earn XP</li>
-          <li>Badges, leaderboard, daily XP rewards, and streak tracking</li>
-          <li>Google and email sign-in with cross-device sync</li>
-        </ul>
       </div>
-
-      <!-- bottom-right: under the hood -->
-      <div class="bento-card bento-hood">
-        <div class="spotlight"></div>
-        <div class="card-section-label">Under the hood</div>
-        <ul class="project-bullets" style="margin-bottom:0;">
-          <li>3-layer Flask backend with shared auth middleware across all routes</li>
-          <li>PostgreSQL stored procedures with row-level locking for atomic XP updates</li>
-          <li>Redis caching with distributed locking to prevent cache stampedes</li>
-          <li>Token-bucket rate limiter with daily refills and failure-safe rollback</li>
-          <li>FCM push notifications with automatic stale token pruning</li>
-          <li>GitHub Actions CI/CD — deploys only on passing pytest suite</li>
-        </ul>
-      </div>
-
     </div>
-    </div> <!-- end bento-wrapper -->
 
-    <!-- repo / readme / wiki buttons sit below the card as their own row -->
+    <!-- Repo / README / Wiki buttons -->
     <div class="project-links">
 
-      <a href="https://github.com/nicholasdakis/level_up" target="_blank" class="project-link-btn">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577
-            0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755
-            -1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305
-            3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93
-            0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176
-            0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405
-            1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23
-            .645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22
-            0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22
-            0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57
-            C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/>
-        </svg>
+      <a href="https://github.com/nicholasdakis/level_up" target="_blank" class="project-link-btn" aria-label="View GitHub repository">
+        <!-- GitHub icon -->
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>
         Repo
       </a>
 
-      <a href="https://github.com/nicholasdakis/level_up#readme" target="_blank" class="project-link-btn">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577
-            0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755
-            -1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305
-            3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93
-            0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176
-            0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405
-            1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23
-            .645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22
-            0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22
-            0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57
-            C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/>
-        </svg>
+      <a href="https://github.com/nicholasdakis/level_up#readme" target="_blank" class="project-link-btn" aria-label="View README">
+        <!-- Book / README icon -->
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4.5A2.5 2.5 0 016.5 2H20a1 1 0 011 1v16.5a1 1 0 01-1 1H6.5A2.5 2.5 0 014 18V4.5zM6.5 4A.5.5 0 006 4.5V18a.5.5 0 00.5.5H19V4H6.5zM8 7h8v1.5H8V7zm0 3.5h6V12H8v-1.5z"/></svg>
         README
       </a>
 
-      <a href="https://github.com/nicholasdakis/level_up/wiki" target="_blank" class="project-link-btn">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577
-            0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755
-            -1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305
-            3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93
-            0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176
-            0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405
-            1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23
-            .645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22
-            0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22
-            0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57
-            C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/>
-        </svg>
+      <a href="https://github.com/nicholasdakis/level_up/wiki" target="_blank" class="project-link-btn" aria-label="View Wiki">
+        <!-- Wiki / pages icon -->
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5a2 2 0 012-2h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5zm9 1l-5 4h3v7h4v-7h3l-5-4z"/></svg>
         Wiki
       </a>
 
@@ -805,14 +664,19 @@
   </section>
 </div>
 
-<!-- ==================== FOOTER ==================== -->
+<!-- FOOTER — "Open to roles" links to email -->
 <footer class="footer">
   <span class="footer-copy">&copy; 2026 Nicholas Dakis</span>
-  <span class="status"><span class="status-dot"></span>Open to roles</span>
+  <a href="mailto:nicholasdakis@outlook.com" class="status" aria-label="Open to roles — contact me">
+    <span class="status-dot" aria-hidden="true"></span>Open to roles
+  </a>
 </footer>
 
-<!-- ==================== SKILLS TICKER SCRIPT ==================== -->
-<div id="sk-tooltip"><span class="sk-tooltip-title" id="sk-tooltip-title"></span><span id="sk-tooltip-body"></span></div>
+<!-- TOOLTIP -->
+<div id="sk-tooltip" role="tooltip" aria-live="polite">
+  <span class="sk-tooltip-title" id="sk-tooltip-title"></span>
+  <span id="sk-tooltip-body"></span>
+</div>
 
 <script>
   const _skills = {
@@ -858,28 +722,52 @@
   [...entries, ...entries].forEach(([name, desc]) => {
     const pill = document.createElement('span');
     pill.className = 'skill-pill';
+    pill.setAttribute('tabindex', '0');
+    pill.setAttribute('role', 'button');
+    pill.setAttribute('aria-label', name);
+
     if (_skillIcons[name]) {
       const icon = document.createElement('i');
       icon.className = _skillIcons[name];
+      icon.setAttribute('aria-hidden', 'true');
       pill.appendChild(icon);
     }
     pill.appendChild(document.createTextNode(name));
-    pill.addEventListener('mouseenter', e => {
-      tooltipTitle.textContent = 'Usage example: Level Up!';
+
+    const showTip = (e) => {
+      tooltipTitle.textContent = 'Usage: Level Up!';
       tooltipBody.textContent = desc;
       tooltip.style.opacity = '1';
       positionTooltip(e);
-    });
+    };
+
+    pill.addEventListener('mouseenter', showTip);
     pill.addEventListener('mousemove', positionTooltip);
     pill.addEventListener('mouseleave', () => { tooltip.style.opacity = '0'; });
+    pill.addEventListener('focus', showTip);
+    pill.addEventListener('blur', () => { tooltip.style.opacity = '0'; });
+
     track.appendChild(pill);
   });
 
   function positionTooltip(e) {
-    tooltip.style.left = (e.clientX - 120) + 'px';
-    tooltip.style.top = (e.clientY - tooltip.offsetHeight - 12) + 'px';
+    const tw = tooltip.offsetWidth;   // actual rendered width
+    const th = tooltip.offsetHeight;
+    const vw = window.innerWidth;
+
+    let left = e.clientX - tw / 2;
+    let top  = e.clientY - th - 12;
+
+    // clamp horizontally so tooltip never escapes viewport
+    left = Math.max(8, Math.min(left, vw - tw - 8));
+    // if not enough room above, flip below cursor
+    if (top < 8) top = e.clientY + 20;
+
+    tooltip.style.left = left + 'px';
+    tooltip.style.top  = top  + 'px';
   }
 
+  // scroll fade-in
   const observer = new IntersectionObserver(entries => {
     entries.forEach(el => {
       if (el.isIntersecting) {
@@ -894,7 +782,7 @@
     observer.observe(el);
   });
 
-  // --- bento stagger fade-in ---
+  // bento stagger fade-in
   const bentoObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -910,12 +798,12 @@
   const bentoEl = document.querySelector('.bento');
   if (bentoEl) bentoObserver.observe(bentoEl);
 
-  // --- cursor spotlight on bento cards ---
+  // cursor spotlight on bento cards
   document.querySelectorAll('.bento-card').forEach(card => {
     card.addEventListener('mousemove', e => {
       const rect = card.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      const x = ((e.clientX - rect.left) / rect.width)  * 100;
+      const y = ((e.clientY - rect.top)  / rect.height) * 100;
       card.style.setProperty('--mx', x + '%');
       card.style.setProperty('--my', y + '%');
     });
