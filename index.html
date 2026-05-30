@@ -285,7 +285,7 @@
         position: fixed;
         pointer-events: none;
         opacity: 0;
-        background: #1e1e24;
+        background: var(--bg);
         border: 1px solid rgba(90, 90, 240, 0.3);
         border-radius: 8px;
         padding: 10px 13px;
@@ -560,7 +560,7 @@
       }
 
       .modal {
-        background: #1e1e26;
+        background: var(--bg);
         border: 1px solid rgba(123, 123, 245, 0.3);
         border-radius: 18px;
         padding: 28px 28px 24px;
@@ -1266,8 +1266,8 @@
 
       // scroll fade-in
       const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((el) => {
+        (observed) => {
+          observed.forEach((el) => {
             if (el.isIntersecting) {
               el.target.classList.add("visible");
               observer.unobserve(el.target);
