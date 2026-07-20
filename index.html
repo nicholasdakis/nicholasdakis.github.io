@@ -18,7 +18,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="google-adsense-account" content="ca-pub-4003172698560190" />
-    <meta name="theme-color" content="#8a8aff" />
+    <meta name="theme-color" content="#0e7c6a" />
 
     <!-- og tags -->
     <meta
@@ -36,7 +36,7 @@
     <title>Nicholas Dakis</title>
 
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=JetBrains+Mono:wght@400;700&display=swap"
       rel="stylesheet"
     />
     <link
@@ -78,14 +78,30 @@
     <style>
       /* --- variables --- */
       :root {
-        --bg: #1e1e24;
-        --accent: #7b7bf5;
-        --text: #e8e8e8;
-        --muted: #b0b0c0;
-        --border: rgba(255, 255, 255, 0.08);
-        --glass: rgba(255, 255, 255, 0.045);
-        --font: "Space Grotesk", sans-serif;
-        --mono: "Space Mono", monospace;
+        --bg: #f2f7f5;
+        --card: #ffffff;
+        --card-shadow: 0 1px 4px rgba(10,60,50,0.07), 0 0 0 1px #cde0d8;
+        --accent: #0e7c6a;
+        --text: #0a1f1a;
+        --text-secondary: #2a4a42;
+        --muted: #527068;
+        --border: #b0cfc7;
+        --border-strong: rgba(14,124,106,0.45);
+        --font: "DM Sans", sans-serif;
+        --display: "DM Sans", sans-serif;
+        --mono: "JetBrains Mono", monospace;
+      }
+
+      [data-theme="dark"] {
+        --bg: #0c1714;
+        --card: #142420;
+        --card-shadow: 0 2px 8px rgba(0,0,0,0.5), 0 0 0 1px rgba(14,124,106,0.3);
+        --accent: #2ecc9e;
+        --text: #e0f0ec;
+        --text-secondary: #c4ddd7;
+        --muted: #6a9e94;
+        --border: rgba(46,204,158,0.32);
+        --border-strong: rgba(46,204,158,0.6);
       }
 
       /* --- reset & base --- */
@@ -101,11 +117,13 @@
         background: var(--bg);
         color: var(--text);
         font-family: var(--font);
+        font-size: 14px;
         line-height: 1.6;
         min-height: 100vh;
         display: flex;
         flex-direction: column;
         overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
       }
 
       a {
@@ -117,7 +135,7 @@
       .wrap {
         max-width: 720px;
         margin: 0 auto;
-        padding: 80px 24px 120px;
+        padding: 48px 24px 120px;
         width: 100%;
         position: relative;
         z-index: 1;
@@ -125,31 +143,25 @@
 
       /* ---- HERO ---- */
       .hero {
-        margin-bottom: 64px;
+        margin-bottom: 24px;
       }
 
       .hero h1 {
-        font-size: clamp(42px, 9vw, 72px);
-        font-weight: 700;
-        letter-spacing: -0.03em;
-        line-height: 1;
-        margin-bottom: 16px;
-        background: linear-gradient(
-          135deg,
-          #e8e8e8 0%,
-          #d0d0f2 60%,
-          #beb8f0 100%
-        );
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        font-family: var(--display);
+        font-size: clamp(48px, 9vw, 80px);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1.0;
+        margin-bottom: 12px;
+        color: var(--text);
       }
 
       .hero-sub {
-        font-size: 14px;
-        color: var(--muted);
-        margin-bottom: 28px;
-        line-height: 1.6;
+        font-size: 15px;
+        color: var(--text-secondary);
+        margin-bottom: 20px;
+        line-height: 1.65;
+        max-width: 480px;
       }
 
       /* ---- HERO LINKS ---- */
@@ -163,27 +175,24 @@
         display: inline-flex;
         align-items: center;
         gap: 7px;
-        font-family: var(--mono);
-        font-size: 11px;
-        color: var(--muted);
-        background: var(--glass);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid var(--border);
+        font-family: var(--font);
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text-secondary);
+        background: var(--card);
+        box-shadow: var(--card-shadow);
+        border: none;
         padding: 10px 18px;
-        border-radius: 100px;
-        transition:
-          color 0.2s,
-          border-color 0.2s;
+        border-radius: 10px;
+        transition: color 0.2s, box-shadow 0.2s, transform 0.15s;
       }
 
-      /* accent color on hover */
       .link-btn:hover {
         color: var(--accent);
-        border-color: var(--accent);
+        transform: translateY(-1px);
+        box-shadow: 0 3px 8px rgba(10,60,50,0.12), 0 0 0 1px var(--accent);
       }
 
-      /* svg icons inside hero buttons */
       .link-btn svg {
         width: 13px;
         height: 13px;
@@ -194,15 +203,15 @@
       /* ---- SECTION LABEL ---- */
       .section-label {
         font-family: var(--mono);
-        font-size: 10px;
-        color: var(--muted);
-        letter-spacing: 0.16em;
+        font-size: 9px;
+        font-weight: 700;
+        color: var(--accent);
+        letter-spacing: 0.2em;
         text-transform: uppercase;
-        margin-bottom: 16px;
+        margin-bottom: 24px;
         display: flex;
         align-items: center;
-        gap: 10px;
-        opacity: 0.6;
+        gap: 12px;
       }
 
       .section-label::after {
@@ -212,67 +221,45 @@
         background: var(--border);
       }
 
-      /* ---- SKILLS TICKER ---- */
+      /* ---- SKILLS ROW ---- */
       .sk-wrap {
-        overflow: hidden;
-        mask-image: linear-gradient(
-          to right,
-          transparent,
-          black 60px,
-          black calc(100% - 60px),
-          transparent
-        );
-        -webkit-mask-image: linear-gradient(
-          to right,
-          transparent,
-          black 60px,
-          black calc(100% - 60px),
-          transparent
-        );
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+
+      .sk-wrap::-webkit-scrollbar {
+        display: none;
       }
 
       .sk-track {
-        display: flex;
-        gap: 8px;
-        width: max-content;
-        animation: sk-scroll 28s linear infinite;
-      }
-
-      .sk-wrap:hover .sk-track {
-        animation-play-state: paused;
-      }
-
-      @keyframes sk-scroll {
-        from {
-          transform: translateX(0);
-        }
-        to {
-          transform: translateX(-50%);
-        }
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 6px;
       }
 
       .skill-pill {
         font-family: var(--mono);
         font-size: 10px;
-        padding: 5px 13px;
-        border-radius: 100px;
-        border: 1px solid var(--border);
-        color: var(--muted);
-        background: transparent;
+        padding: 4px 8px;
+        border-radius: 6px;
+        border: 1px solid var(--border-strong);
+        color: var(--text-secondary);
+        background: var(--card);
         white-space: nowrap;
-        flex-shrink: 0;
         cursor: default;
-        transition:
-          border-color 0.2s,
-          color 0.2s;
-        display: inline-flex;
+        transition: border-color 0.2s, color 0.2s;
+        display: flex;
         align-items: center;
-        gap: 6px;
+        justify-content: center;
+        gap: 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       .skill-pill i {
-        font-size: 13px;
+        font-size: 12px;
         line-height: 1;
+        flex-shrink: 0;
       }
 
       .skill-pill:hover {
@@ -280,13 +267,19 @@
         color: var(--accent);
       }
 
+      @media (max-width: 560px) {
+        .sk-track {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
       /* ---- TOOLTIP ---- */
       #sk-tooltip {
         position: fixed;
         pointer-events: none;
         opacity: 0;
-        background: var(--bg);
-        border: 1px solid rgba(90, 90, 240, 0.3);
+        background: var(--card);
+        border: 1px solid var(--border);
         border-radius: 8px;
         padding: 10px 13px;
         width: 240px;
@@ -297,7 +290,6 @@
         z-index: 9999;
         transition: opacity 0.15s;
         white-space: normal;
-        /* Clamp to viewport edges */
         max-width: min(240px, calc(100vw - 24px));
       }
 
@@ -322,90 +314,36 @@
         transform: translateY(0);
       }
 
-      /* ---- ANIMATED CARD BORDER ---- */
-      @property --border-angle {
-        syntax: "<angle>";
-        inherits: false;
-        initial-value: 0deg;
-      }
-
-      @keyframes border-spin {
-        to {
-          --border-angle: 360deg;
-        }
-      }
-
-      .project-card {
-        display: block;
-        padding: 26px 28px;
-        background: var(--glass);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid var(--border);
-        border-radius: 18px;
-        position: relative;
-        overflow: hidden;
-        transition: transform 0.22s;
-        margin-bottom: 10px;
-        animation: border-spin 6s linear infinite;
-        --border-color: conic-gradient(
-          from var(--border-angle),
-          transparent 70%,
-          rgba(90, 90, 240, 0.5) 85%,
-          rgba(180, 100, 255, 0.4) 95%,
-          transparent 100%
-        );
-      }
-
-      .project-card::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        border-radius: 18px;
-        padding: 1px;
-        background: var(--border-color);
-        -webkit-mask:
-          linear-gradient(#fff 0 0) content-box,
-          linear-gradient(#fff 0 0);
-        mask:
-          linear-gradient(#fff 0 0) content-box,
-          linear-gradient(#fff 0 0);
-        -webkit-mask-composite: xor;
-        mask-composite: exclude;
-        pointer-events: none;
-      }
-
-      .project-card:hover {
-        transform: translateY(-2px);
-      }
-
       .project-top {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 4px;
+        margin-bottom: 2px;
       }
 
       .project-name {
-        font-size: 21px;
-        font-weight: 700;
-        letter-spacing: -0.02em;
+        font-family: var(--display);
+        font-size: 32px;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        color: var(--text);
       }
 
       .project-subtitle {
-        font-family: var(--mono);
-        font-size: 10px;
-        color: var(--muted);
-        margin-bottom: 16px;
-        opacity: 0.65;
+        font-family: var(--font);
+        font-size: 16px;
+        font-weight: 500;
+        color: var(--text-secondary);
+        margin-bottom: 14px;
+        margin-top: 4px;
       }
 
-      /* --- platform pills row: two separate pills so neither wraps --- */
+      /* --- platform pills row --- */
       .platform-pills {
         display: flex;
         gap: 6px;
         flex-wrap: wrap;
-        margin-bottom: 20px;
+        margin-bottom: 16px;
       }
 
       .platform-pill {
@@ -413,29 +351,32 @@
         align-items: center;
         gap: 5px;
         font-family: var(--mono);
-        font-size: 9px;
-        color: var(--accent);
-        background: rgba(123, 123, 245, 0.12);
-        border: 1px solid rgba(123, 123, 245, 0.28);
-        padding: 4px 10px;
-        border-radius: 100px;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        background: var(--bg);
+        border: 1px solid var(--border);
+        padding: 5px 10px;
+        border-radius: 4px;
         white-space: nowrap;
       }
 
-      .platform-pill::before {
-        content: "◆";
-        font-size: 5px;
+      .platform-pill svg {
+        width: 11px;
+        height: 11px;
+        fill: currentColor;
+        flex-shrink: 0;
       }
 
-      /* --- card sub-section label (Features / Under the hood) --- */
+      /* --- card sub-section label --- */
       .card-section-label {
         font-family: var(--mono);
         font-size: 9px;
-        color: var(--muted);
-        letter-spacing: 0.14em;
+        font-weight: 700;
+        color: var(--accent);
+        letter-spacing: 0.18em;
         text-transform: uppercase;
-        opacity: 0.5;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
       }
 
       /* --- bullet lists --- */
@@ -444,24 +385,27 @@
         list-style: none;
         display: flex;
         flex-direction: column;
-        gap: 7px;
+        gap: 8px;
         margin-bottom: 18px;
       }
 
       .project-bullets li {
         font-size: 13px;
-        color: #c0c0d0;
+        color: var(--text-secondary);
         line-height: 1.55;
-        padding-left: 16px;
+        padding-left: 14px;
         position: relative;
       }
 
       .project-bullets li::before {
-        content: "·";
+        content: "›";
         position: absolute;
         left: 0;
         color: var(--accent);
-        opacity: 0.6;
+        font-weight: 700;
+        font-size: 14px;
+        top: 0px;
+        line-height: 1.55;
       }
 
       /* --- divider --- */
@@ -481,11 +425,11 @@
       .tag {
         font-family: var(--mono);
         font-size: 10px;
-        color: var(--muted);
-        background: rgba(255, 255, 255, 0.03);
+        color: var(--text-secondary);
+        background: var(--bg);
         border: 1px solid var(--border);
-        padding: 4px 10px;
-        border-radius: 100px;
+        padding: 4px 9px;
+        border-radius: 4px;
       }
 
       /* ---- PROJECT LINK BUTTONS ---- */
@@ -500,23 +444,22 @@
         display: inline-flex;
         align-items: center;
         gap: 7px;
-        font-family: var(--mono);
-        font-size: 10px;
-        color: var(--muted);
-        background: var(--glass);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid var(--border);
+        font-family: var(--font);
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text-secondary);
+        background: var(--card);
+        box-shadow: var(--card-shadow);
+        border: none;
         padding: 9px 16px;
-        border-radius: 10px; /* slightly squared vs hero pill to feel distinct */
-        transition:
-          color 0.2s,
-          border-color 0.2s;
+        border-radius: 10px;
+        transition: color 0.2s, box-shadow 0.2s, transform 0.15s;
       }
 
       .project-link-btn:hover {
         color: var(--accent);
-        border-color: var(--accent);
+        transform: translateY(-1px);
+        box-shadow: 0 3px 8px rgba(10,60,50,0.12), 0 0 0 1px var(--accent);
       }
 
       .project-link-btn svg {
@@ -530,7 +473,7 @@
       .modal-overlay {
         position: fixed;
         inset: 0;
-        background: rgba(0, 0, 0, 0.55);
+        background: rgba(10, 31, 26, 0.5);
         backdrop-filter: blur(6px);
         -webkit-backdrop-filter: blur(6px);
         z-index: 1000;
@@ -548,8 +491,8 @@
       }
 
       .modal {
-        background: var(--bg);
-        border: 1px solid rgba(123, 123, 245, 0.3);
+        background: var(--card);
+        border: 1px solid var(--border);
         border-radius: 18px;
         padding: 28px 28px 24px;
         width: min(360px, calc(100vw - 40px));
@@ -566,14 +509,15 @@
         font-weight: 700;
         letter-spacing: -0.02em;
         margin-bottom: 6px;
+        text-align: center;
       }
 
       .modal-sub {
         font-family: var(--mono);
         font-size: 10px;
-        color: var(--muted);
-        opacity: 0.65;
+        color: var(--text-secondary);
         margin-bottom: 20px;
+        text-align: center;
       }
 
       .modal-options {
@@ -590,7 +534,7 @@
         padding: 14px 16px;
         border-radius: 12px;
         border: 1px solid var(--border);
-        background: var(--glass);
+        background: var(--bg);
         color: var(--text);
         text-decoration: none;
         transition:
@@ -652,8 +596,9 @@
         bottom: 0;
         left: 0;
         width: 100%;
-        padding: 24px;
-        background: linear-gradient(to top, var(--bg) 50%, transparent);
+        padding: 16px 24px;
+        background: var(--card);
+        border-top: 1px solid var(--border);
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -664,20 +609,20 @@
       }
 
       .footer-copy {
-        opacity: 0.4;
+        color: var(--muted);
       }
 
-      /* ---- STATUS DOT — now a link ---- */
+      /* ---- STATUS DOT ---- */
       .status {
         display: flex;
         align-items: center;
-        gap: 14px;
-        opacity: 0.7;
-        transition: opacity 0.2s;
+        gap: 8px;
+        color: var(--text-secondary);
+        transition: color 0.2s;
         cursor: pointer;
       }
       .status:hover {
-        opacity: 1;
+        color: var(--accent);
       }
 
       .status-dot {
@@ -689,7 +634,6 @@
         flex-shrink: 0;
       }
 
-      /* ping ripple on status dot */
       .status-dot::after {
         content: "";
         position: absolute;
@@ -720,7 +664,7 @@
         transition: opacity 0.3s;
         background: radial-gradient(
           circle 120px at var(--mx, 50%) var(--my, 50%),
-          rgba(123, 123, 245, 0.07),
+          rgba(14, 124, 106, 0.06),
           transparent 70%
         );
       }
@@ -749,36 +693,32 @@
 
       /* --- bento grid --- */
       .bento-wrapper {
-        border-radius: 20px;
-        border: 1px solid rgba(123, 123, 245, 0.25);
+        border-radius: 16px;
+        box-shadow: var(--card-shadow);
         margin-bottom: 10px;
+        overflow: hidden;
       }
 
       .bento {
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: auto auto;
-        gap: 2px;
-        background: rgba(255, 255, 255, 0.04);
-        border-radius: 18px;
+        gap: 1px;
+        background: var(--border);
+        border-radius: 16px;
         overflow: hidden;
       }
 
       .bento-card {
-        background: #1e1e26;
-        padding: 22px;
+        background: var(--card);
+        padding: 24px;
         position: relative;
         overflow: hidden;
-        background-image: radial-gradient(
-          rgba(255, 255, 255, 0.03) 1px,
-          transparent 1px
-        );
-        background-size: 20px 20px;
-        background-color: #1e1e26;
+        transition: background 0.18s;
       }
 
       .bento-card:hover {
-        background-color: #21212e;
+        background: var(--bg);
         z-index: 1;
       }
 
@@ -786,8 +726,6 @@
         border-radius: 16px 0 0 0;
         grid-column: 1;
         grid-row: 1;
-        display: flex;
-        flex-direction: column;
       }
       .bento-stack {
         border-radius: 0 16px 0 0;
@@ -805,26 +743,6 @@
         grid-row: 2;
       }
 
-      .bento-card a.open-app-hint,
-      .open-app-hint {
-        display: inline-block;
-        font-family: var(--mono);
-        font-size: 11px;
-        color: var(--accent);
-        opacity: 0.9;
-        margin-top: auto;
-        padding-top: 16px;
-        transition: opacity 0.2s;
-        font-weight: 700;
-      }
-
-      a.bento-card {
-        cursor: pointer;
-        text-decoration: none;
-      }
-      a.bento-card:hover .open-app-hint {
-        opacity: 1;
-      }
 
       @media (max-width: 560px) {
         .bento {
@@ -909,7 +827,7 @@
       </header>
 
       <!-- SKILLS -->
-      <section style="margin-bottom: 48px" class="fade-in" aria-label="Skills">
+      <section style="margin-bottom: 32px" class="fade-in" aria-label="Skills">
         <div class="section-label">Skills</div>
         <div class="sk-wrap" role="region" aria-label="Scrolling skills list">
           <div class="sk-track" id="sk-track"></div>
@@ -936,13 +854,19 @@
               </div>
               <div class="project-subtitle">Gamified health app</div>
               <div class="platform-pills" aria-label="Available platforms">
-                <span class="platform-pill">Web</span>
-                <span class="platform-pill">PWA</span>
-                <span class="platform-pill">Android</span>
+                <span class="platform-pill">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.523 15.341a5 5 0 01-4.642 3.146A5 5 0 017.24 15.34L4.5 10.5h15l-1.977 4.841zM6.5 3.5l1.5 3h8l1.5-3M8 3.5L6 1m10 2.5L14 1"/></svg>
+                  Android
+                </span>
+                <span class="platform-pill">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm0 2c.55 0 1.3.8 1.9 2.2A13.8 13.8 0 0114.5 12a13.8 13.8 0 01-.6 5.8C13.3 19.2 12.55 20 12 20s-1.3-.8-1.9-2.2A13.8 13.8 0 019.5 12c0-2.15.2-4.1.6-5.8C10.7 4.8 11.45 4 12 4zm-8 8c0-2 .5-3.85 1.35-5.45A8 8 0 014 12a8 8 0 01-.65-2m1 2c0 1.1.2 2.15.55 3.1A7.95 7.95 0 014 12zm16 0a8 8 0 01-.65 2.55 8 8 0 01.65-2.55zm0 0a8 8 0 00-.65-2.45A8 8 0 0120 12z"/></svg>
+                  Web
+                </span>
+                <span class="platform-pill">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm-1 5h2v6l4-4 1.4 1.4L12 16.8l-6.4-6.4L7 9l4 4V7z"/></svg>
+                  PWA
+                </span>
               </div>
-              <span class="open-app-hint" aria-hidden="true"
-                >↗ Try it yourself</span
-              >
             </div>
 
             <!-- top-right: tech stack -->
@@ -951,8 +875,10 @@
               <div class="card-section-label">Tech Stack</div>
               <div class="tag-row" aria-label="Technologies used">
                 <span class="tag">Flutter</span>
+                <span class="tag">Riverpod</span>
                 <span class="tag">Python Flask</span>
                 <span class="tag">PostgreSQL</span>
+                <span class="tag">Supabase</span>
                 <span class="tag">Redis</span>
                 <span class="tag">Firebase</span>
                 <span class="tag">GitHub Actions</span>
@@ -970,18 +896,22 @@
               <ul class="project-bullets" style="margin-bottom: 0">
                 <li>
                   Log meals via barcode scan, search, or manual entry with full
-                  macro breakdown
-                </li>
-                <li>Calorie and macro goal tracking with live progress</li>
-                <li>Analytics tab for daily or range-based nutrition review</li>
-                <li>Calorie calculator with BMR and TDEE breakdowns</li>
-                <li>
-                  Check in to nearby locations on an interactive map to earn XP
+                  macro breakdown and nutrition analytics
                 </li>
                 <li>
-                  Badges, leaderboard, daily XP rewards, and streak tracking
+                  Track workouts with sets, reps, weight, live timer, and
+                  instant PR alerts, with custom exercise and routine creation
                 </li>
-                <li>Google and email sign-in with cross-device sync</li>
+                <li>
+                  Check in to nearby points of interest on a map to
+                  earn XP
+                </li>
+                <li>
+                  Climb tiers, compete on leaderboards, and unlock multi-tier
+                  achievement badges
+                </li>
+                <li>
+                  Detailed analytics for food, workouts, water, and weight logs
               </ul>
             </div>
 
@@ -1010,7 +940,7 @@
                   FCM push notifications with automatic stale token pruning
                 </li>
                 <li>
-                  GitHub Actions CI/CD — deploys only on passing pytest suite
+                  GitHub Actions CI/CD; deploys only on passing pytest suite
                 </li>
               </ul>
             </div>
@@ -1020,7 +950,7 @@
         <!-- Repo / README / Wiki buttons -->
         <div class="project-links">
           <a
-            href="https://play.google.com/store/apps/details?id=com.nicholasdakis.levelup&pcampaignid=web_share"
+            href="https://play.google.com/store/apps/details?id=com.nicholasdakis.levelup"
             target="_blank"
             class="project-link-btn"
             aria-label="Download on Google Play"
@@ -1106,7 +1036,7 @@
             </div>
           </a>
           <a
-            href="https://play.google.com/store/apps/details?id=com.nicholasdakis.levelup&pcampaignid=web_share"
+            href="https://play.google.com/store/apps/details?id=com.nicholasdakis.levelup"
             target="_blank"
             class="modal-option"
           >
@@ -1125,13 +1055,14 @@
       </div>
     </div>
 
-    <!-- FOOTER — "Open to roles" links to email -->
+    <!-- FOOTER -->
     <footer class="footer">
       <span class="footer-copy">&copy; 2026 Nicholas Dakis</span>
+      <button id="theme-toggle" aria-label="Toggle dark mode" style="background:none;border:none;cursor:pointer;font-family:var(--mono);font-size:10px;color:var(--muted);opacity:0.6;padding:0;transition:opacity 0.2s;" onmouseenter="this.style.opacity=1" onmouseleave="this.style.opacity=0.6"></button>
       <a
         href="mailto:nicholasdakis@outlook.com"
         class="status"
-        aria-label="Open to roles — contact me"
+        aria-label="Open to roles, contact me"
       >
         <span class="status-dot" aria-hidden="true"></span>Open to roles
       </a>
@@ -1146,34 +1077,34 @@
     <script>
       const _skills = {
         PostgreSQL:
-          "Stores all user data, food logs, streaks, achievements, and rate limit state across 10+ tables with PL/pgSQL stored functions handling XP updates, streak calculations, cooldown checks, and token consumption atomically",
+          "Stores all user data across 20+ tables with PL/pgSQL stored functions handling XP updates, streak calculations, cooldown checks, and token consumption atomically; a trigger-based approach denormalizes like counts for instant reads without aggregation queries",
         Redis:
-          "Caches FatSecret API responses for 30+ days per food name and issues per-query distributed locks to prevent cache stampedes when multiple requests arrive for the same food simultaneously",
+          "Caches FatSecret API responses for 30+ days per food name, issues per-query distributed locks to prevent cache stampedes, and enforces IP-based rate limiting on sensitive endpoints to prevent enumeration attacks",
         Flask:
-          "Serves 25+ POST endpoints across progression, food, POI, reminders, achievements, and settings with a shared _parse_and_auth() helper that deserializes the request body into a Pydantic schema and verifies the Firebase JWT in one step",
+          "Serves 60+ endpoints across progression, food, workouts, POI, social, reminders, achievements, and settings with a shared _parse_and_auth() helper that deserializes the request body into a Pydantic schema and verifies the Firebase JWT in one step",
         Pydantic:
-          "Validates 25+ incoming request bodies against typed schemas (e.g. coordinate bounds on POI check-ins, enum values for weight goal type) and defines typed response models returned from every route",
+          "Validates most incoming request bodies against typed schemas (e.g. coordinate bounds on POI check-ins, enum values for weight goal type) and defines typed response models returned from every route",
         "Flutter Web":
           "Compiles to WASM/JS and serves as a PWA from GitHub Pages, with a custom service worker for FCM background messages, go_router for client-side navigation, and a ValueListenableBuilder at the root that rebuilds the full MaterialApp theme on color change",
-        Dart: "State management via ValueNotifier and setState, all backend communication via http package with Firebase ID token headers, and utility classes like FoodLoggingHelper for parsing and scaling nutrition data",
+        Dart: "State management via Riverpod AsyncNotifier, all backend communication via http package with Firebase ID token headers, and utility classes like FoodLoggingHelper for parsing and scaling nutrition data",
         "Row-level Locking":
           "Applied via SELECT FOR UPDATE inside 5+ PL/pgSQL functions on users, poi_visits, rate_limits, streaks, and achievement_progress to serialize concurrent requests at the database level",
         "Atomic Transactions":
-          "Each PL/pgSQL stored function wraps its lock, validation, and update steps in a single transaction so partial state is never committed — XP is only added if the cooldown check passes, streak only updated if the food log write succeeds",
+          "Each PL/pgSQL stored function wraps its lock, validation, and update steps in a single transaction so partial state is never committed; XP is only added if the cooldown check passes, streak only updated if the food log write succeeds",
         "Distributed Locking":
           "Uses redis-py's redis.lock() on a per-food-name key with a 10s+ hold and 5s+ acquisition timeout so only one Gunicorn worker calls the FatSecret API per unique query while others wait or receive a 503",
         "Token-bucket Rate Limiting":
           "Maintains a rate_limits row with current_tokens and last_refill_time; consume_tokens decrements under a row-level lock and resets every 24 hours, with refund_tokens restoring tokens when the FatSecret API call fails",
-        "Service Workers":
-          "A custom firebase-messaging-sw.js registers with FCM and handles background messages via onBackgroundMessage, manually constructing showNotification calls for data-only payloads so reminders appear even when the app is closed",
         PWA: "Installable via Web App Manifest, runs in standalone mode without browser chrome on iOS and Android, with SafeArea in Flutter handling iOS safe area insets",
         pytest:
-          "89 tests across the services layer with 84% coverage, using dependency injection and unittest.mock to isolate business logic from PostgreSQL, Redis, Firebase, and external APIs — suite blocks deployment on failure via GitHub Actions",
+          "120+ tests across the services layer using dependency injection and unittest.mock to isolate business logic from PostgreSQL, Redis, Firebase, and external APIs; suite blocks deployment on failure via GitHub Actions",
         FCM: "The /send_reminders CRON route sends a MulticastMessage to all registered device tokens, then removes any that returned NOT_FOUND or invalid-registration-token errors from users.fcm_tokens",
         "Firebase Admin SDK":
           "Handles auth.verify_id_token() to authenticate every API request and messaging.send_each_for_multicast() to deliver push notifications in a single batch call",
         "GitHub Actions":
-          "Two-job pipeline — first runs pytest, second (only if tests pass) builds the Flutter web app and deploys to GitHub Pages with secrets injected via encrypted GitHub Secrets",
+          "Two-job pipeline: first runs pytest, second (only if tests pass) builds the Flutter web app and deploys to GitHub Pages with secrets injected via encrypted GitHub Secrets",
+        Riverpod:
+          "AsyncNotifier pattern for all server-backed state; manual state patching on optimistic updates instead of full refreshes, and derived state getters that mirror server-side XP and streak formulas so the UI updates instantly without waiting for a round trip",
       };
 
       const _skillIcons = {
@@ -1187,8 +1118,8 @@
         FCM: "devicon-firebase-plain",
         "Firebase Admin SDK": "devicon-firebase-plain",
         "GitHub Actions": "devicon-github-original",
-        "Service Workers": "devicon-javascript-plain",
         PWA: "devicon-chrome-plain",
+        Riverpod: "devicon-dart-plain",
       };
 
       const track = document.getElementById("sk-track");
@@ -1197,7 +1128,7 @@
       const tooltipBody = document.getElementById("sk-tooltip-body");
       const entries = Object.entries(_skills);
 
-      [...entries, ...entries].forEach(([name, desc]) => {
+      entries.forEach(([name, desc]) => {
         const pill = document.createElement("span");
         pill.className = "skill-pill";
         pill.setAttribute("tabindex", "0");
@@ -1299,6 +1230,28 @@
       });
       document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") tryModal.classList.remove("open");
+      });
+
+      // dark/light mode toggle
+      const themeToggle = document.getElementById("theme-toggle");
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+
+      function applyTheme(dark) {
+        document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+        themeToggle.textContent = dark ? "☀ light" : "☽ dark";
+      }
+
+      let userOverride = null;
+      applyTheme(prefersDark.matches);
+
+      themeToggle.addEventListener("click", () => {
+        const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+        userOverride = !isDark;
+        applyTheme(userOverride);
+      });
+
+      prefersDark.addEventListener("change", (e) => {
+        if (userOverride === null) applyTheme(e.matches);
       });
 
       // cursor spotlight on bento cards
