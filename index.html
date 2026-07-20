@@ -232,8 +232,8 @@
       }
 
       .sk-track {
-        display: grid;
-        grid-template-columns: repeat(6, 1fr);
+        display: flex;
+        flex-wrap: wrap;
         gap: 6px;
       }
 
@@ -265,12 +265,6 @@
       .skill-pill:hover {
         border-color: var(--accent);
         color: var(--accent);
-      }
-
-      @media (max-width: 560px) {
-        .sk-track {
-          grid-template-columns: repeat(3, 1fr);
-        }
       }
 
       /* ---- TOOLTIP ---- */
