@@ -1089,12 +1089,8 @@
           "Uses redis-py's redis.lock() on a per-food-name key with a 10s+ hold and 5s+ acquisition timeout so only one Gunicorn worker calls the FatSecret API per unique query while others wait or receive a 503",
         "Token-bucket Rate Limiting":
           "Maintains a rate_limits row with current_tokens and last_refill_time; consume_tokens decrements under a row-level lock and resets every 24 hours, with refund_tokens restoring tokens when the FatSecret API call fails",
-        PWA: "Installable via Web App Manifest, runs in standalone mode without browser chrome on iOS and Android, with SafeArea in Flutter handling iOS safe area insets",
         pytest:
           "120+ tests across the services layer using dependency injection and unittest.mock to isolate business logic from PostgreSQL, Redis, Firebase, and external APIs; suite blocks deployment on failure via GitHub Actions",
-        FCM: "The /send_reminders CRON route sends a MulticastMessage to all registered device tokens, then removes any that returned NOT_FOUND or invalid-registration-token errors from users.fcm_tokens",
-        "Firebase Admin SDK":
-          "Handles auth.verify_id_token() to authenticate every API request and messaging.send_each_for_multicast() to deliver push notifications in a single batch call",
         "GitHub Actions":
           "Two-job pipeline: first runs pytest, second (only if tests pass) builds the Flutter web app and deploys to GitHub Pages with secrets injected via encrypted GitHub Secrets",
         Riverpod:
@@ -1109,10 +1105,7 @@
         "Flutter Web": "devicon-flutter-plain",
         Dart: "devicon-dart-plain",
         pytest: "devicon-pytest-plain",
-        FCM: "devicon-firebase-plain",
-        "Firebase Admin SDK": "devicon-firebase-plain",
         "GitHub Actions": "devicon-github-original",
-        PWA: "devicon-chrome-plain",
         Riverpod: "devicon-dart-plain",
       };
 
