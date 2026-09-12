@@ -888,24 +888,15 @@
               <div class="spotlight" aria-hidden="true"></div>
               <div class="card-section-label">Features</div>
               <ul class="project-bullets" style="margin-bottom: 0">
-                <li>
-                  Log meals via barcode scan, search, or manual entry with full
-                  macro breakdown and nutrition analytics
-                </li>
-                <li>
-                  Track workouts with sets, reps, weight, live timer, and
-                  instant PR alerts, with custom exercise and routine creation
-                </li>
-                <li>
-                  Check in to nearby points of interest on a map to
-                  earn XP
-                </li>
-                <li>
-                  Climb tiers, compete on leaderboards, and unlock multi-tier
-                  achievement badges
-                </li>
-                <li>
-                  Detailed analytics for food, workouts, water, and weight logs
+                <li>Log meals via barcode scan, search, or manual entry with macro breakdown and analytics</li>
+                <li>Track workouts with sets, reps, weight, live timer, and PR alerts</li>
+                <li>Check in to nearby points of interest on a map to earn XP</li>
+                <li>Climb tiers, compete on leaderboards, and unlock achievement badges</li>
+                <li>Daily rewards with streak multipliers and push notification reminders</li>
+                <li>Track habits with consistency scoring and per-habit streaks</li>
+                <li>Friend system with activity feed, nudges, and privacy controls</li>
+                <li>Daily, weekly, and global challenges with shared progress</li>
+                <li>Analytics for food, workouts, water, weight, and more</li>
               </ul>
             </div>
 
@@ -915,8 +906,9 @@
               <div class="card-section-label">Under the hood</div>
               <ul class="project-bullets" style="margin-bottom: 0">
                 <li>
-                  3-layer Flask backend with shared auth middleware across all
-                  routes
+                  Service + repository + server layer pattern (ProgressionService,
+                  FoodService, WorkoutService etc. above UserRepository,
+                  WorkoutRepository etc.) with shared auth middleware across all 140+ routes
                 </li>
                 <li>
                   PostgreSQL stored procedures with row-level locking for atomic
@@ -957,51 +949,65 @@
           </a>
 
           <a
-            href="https://github.com/nicholasdakis/level_up"
+            href="/level_up"
             target="_blank"
             class="project-link-btn"
-            aria-label="View GitHub repository"
+            aria-label="Open web app"
           >
-            <!-- GitHub icon -->
             <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"
-              />
+              <path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm-1 17.93V18a1 1 0 00-2 0v1.93A8.001 8.001 0 014.07 13H6a1 1 0 000-2H4.07A8.001 8.001 0 0111 4.07V6a1 1 0 002 0V4.07A8.001 8.001 0 0119.93 11H18a1 1 0 000 2h1.93A8.001 8.001 0 0113 19.93z"/>
+            </svg>
+            Web / PWA
+          </a>
+
+          <button
+            class="project-link-btn"
+            id="private-repo-btn"
+            aria-label="Repository info"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/>
             </svg>
             Repo
-          </a>
+          </button>
 
-          <a
-            href="https://github.com/nicholasdakis/level_up#readme"
-            target="_blank"
-            class="project-link-btn"
-            aria-label="View README"
-          >
-            <!-- Book / README icon -->
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                d="M4 4.5A2.5 2.5 0 016.5 2H20a1 1 0 011 1v16.5a1 1 0 01-1 1H6.5A2.5 2.5 0 014 18V4.5zM6.5 4A.5.5 0 006 4.5V18a.5.5 0 00.5.5H19V4H6.5zM8 7h8v1.5H8V7zm0 3.5h6V12H8v-1.5z"
-              />
-            </svg>
-            README
-          </a>
-
-          <a
-            href="https://github.com/nicholasdakis/level_up/wiki"
-            target="_blank"
-            class="project-link-btn"
-            aria-label="View Wiki"
-          >
-            <!-- Wiki / pages icon -->
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                d="M3 5a2 2 0 012-2h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5zm9 1l-5 4h3v7h4v-7h3l-5-4z"
-              />
-            </svg>
-            Wiki
-          </a>
         </div>
       </section>
+    </div>
+
+    <!-- PRIVATE REPO MODAL -->
+    <div
+      class="modal-overlay"
+      id="repo-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Repository info"
+    >
+      <div class="modal">
+        <div class="modal-title">Repository is Private</div>
+        <div class="modal-sub">I started this openly, but as it grew into something real I decided I wanted to keep it private. May open-source it down the line.</div>
+        <div class="modal-options">
+          <a href="mailto:nicholasdakis@outlook.com" class="modal-option">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+            </svg>
+            <div class="modal-option-text">
+              <span class="modal-option-label">Get in touch</span>
+              <span class="modal-option-desc">Reach out if you have questions about the project</span>
+            </div>
+          </a>
+          <a href="https://linkedin.com/in/nicholasdakis" target="_blank" class="modal-option">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            <div class="modal-option-text">
+              <span class="modal-option-label">Connect on LinkedIn</span>
+              <span class="modal-option-desc">Message me there instead</span>
+            </div>
+          </a>
+        </div>
+        <button class="modal-cancel" id="repo-modal-cancel">Cancel</button>
+      </div>
     </div>
 
     <!-- TRY IT MODAL -->
@@ -1053,13 +1059,6 @@
     <footer class="footer">
       <span class="footer-copy">&copy; 2026 Nicholas Dakis</span>
       <button id="theme-toggle" aria-label="Toggle dark mode" style="background:none;border:none;cursor:pointer;font-family:var(--mono);font-size:10px;color:var(--muted);opacity:0.6;padding:0;transition:opacity 0.2s;" onmouseenter="this.style.opacity=1" onmouseleave="this.style.opacity=0.6"></button>
-      <a
-        href="mailto:nicholasdakis@outlook.com"
-        class="status"
-        aria-label="Open to roles, contact me"
-      >
-        <span class="status-dot" aria-hidden="true"></span>Open to roles
-      </a>
     </footer>
 
     <!-- TOOLTIP -->
@@ -1071,11 +1070,11 @@
     <script>
       const _skills = {
         PostgreSQL:
-          "Stores all user data across 20+ tables with PL/pgSQL stored functions handling XP updates, streak calculations, cooldown checks, and token consumption atomically; a trigger-based approach denormalizes like counts for instant reads without aggregation queries",
+          "Stores all user data across 40+ tables with PL/pgSQL stored functions handling XP updates, streak calculations, cooldown checks, and token consumption atomically; a trigger-based approach denormalizes like counts for instant reads without aggregation queries",
         Redis:
           "Caches FatSecret API responses for 30+ days per food name, issues per-query distributed locks to prevent cache stampedes, and enforces IP-based rate limiting on sensitive endpoints to prevent enumeration attacks",
         Flask:
-          "Serves 60+ endpoints across progression, food, workouts, POI, social, reminders, achievements, and settings with a shared _parse_and_auth() helper that deserializes the request body into a Pydantic schema and verifies the Firebase JWT in one step",
+          "Serves 140+ endpoints across progression, food, workouts, POI, social, reminders, achievements, and settings with a shared _parse_and_auth() helper that deserializes the request body into a Pydantic schema and verifies the Firebase JWT in one step",
         Pydantic:
           "Validates most incoming request bodies against typed schemas (e.g. coordinate bounds on POI check-ins, enum values for weight goal type) and defines typed response models returned from every route",
         "Flutter Web":
@@ -1215,8 +1214,24 @@
       tryModal.addEventListener("click", (e) => {
         if (e.target === tryModal) tryModal.classList.remove("open");
       });
+
+      // private repo modal
+      const repoModal = document.getElementById("repo-modal");
+      document.getElementById("private-repo-btn").addEventListener("click", () => {
+        repoModal.classList.add("open");
+      });
+      document.getElementById("repo-modal-cancel").addEventListener("click", () => {
+        repoModal.classList.remove("open");
+      });
+      repoModal.addEventListener("click", (e) => {
+        if (e.target === repoModal) repoModal.classList.remove("open");
+      });
+
       document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") tryModal.classList.remove("open");
+        if (e.key === "Escape") {
+          tryModal.classList.remove("open");
+          repoModal.classList.remove("open");
+        }
       });
 
       // dark/light mode toggle
