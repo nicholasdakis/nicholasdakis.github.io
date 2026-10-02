@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script>
+    var path = location.pathname;
+    if (path.indexOf('/level_up') === 0) {
+      location.replace(location.origin + path.replace('/level_up', '/level-up') + location.search);
+    }
+  </script>
+</head>
+<body></body>
+</html>
