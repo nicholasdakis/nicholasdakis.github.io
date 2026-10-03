@@ -1223,22 +1223,32 @@
       const themeToggle = document.getElementById("theme-toggle");
       const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
 
+      function setFavicons(dark) {
+        const folder = dark ? "dark" : "light";
+        document.querySelector("link[rel='icon'][type='image/png'][sizes='32x32']").href = "/favicons/" + folder + "/favicon-32x32.png";
+        document.querySelector("link[rel='icon'][type='image/png'][sizes='16x16']").href = "/favicons/" + folder + "/favicon-16x16.png";
+        document.querySelector("link[rel='icon'][sizes='180x180']").href = "/favicons/" + folder + "/apple-touch-icon.png";
+      }
+
       function applyTheme(dark) {
         document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
         themeToggle.textContent = dark ? "☀ light mode" : "☽ dark mode";
+        setFavicons(dark);
       }
 
-      let userOverride = null;
-      applyTheme(prefersDark.matches);
+      const saved = localStorage.getItem("theme");
+      const initDark = saved ? saved === "dark" : prefersDark.matches;
+      applyTheme(initDark);
 
       themeToggle.addEventListener("click", () => {
         const isDark = document.documentElement.getAttribute("data-theme") === "dark";
-        userOverride = !isDark;
-        applyTheme(userOverride);
+        const next = !isDark;
+        localStorage.setItem("theme", next ? "dark" : "light");
+        applyTheme(next);
       });
 
       prefersDark.addEventListener("change", (e) => {
-        if (userOverride === null) applyTheme(e.matches);
+        if (!localStorage.getItem("theme")) applyTheme(e.matches);
       });
 
       // cursor spotlight on bento cards
