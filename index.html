@@ -1225,9 +1225,12 @@
 
       function setFavicons(dark) {
         const folder = dark ? "dark" : "light";
-        document.querySelector("link[rel='icon'][type='image/png'][sizes='32x32']").href = "/favicons/" + folder + "/favicon-32x32.png";
-        document.querySelector("link[rel='icon'][type='image/png'][sizes='16x16']").href = "/favicons/" + folder + "/favicon-16x16.png";
-        document.querySelector("link[rel='icon'][sizes='180x180']").href = "/favicons/" + folder + "/apple-touch-icon.png";
+        const other = dark ? "light" : "dark";
+        document.querySelectorAll("link[rel='icon'], link[rel='apple-touch-icon']").forEach((el) => {
+          if (el.href && el.href.includes("/favicons/" + other + "/")) {
+            el.href = el.href.replace("/favicons/" + other + "/", "/favicons/" + folder + "/");
+          }
+        });
       }
 
       function applyTheme(dark) {
