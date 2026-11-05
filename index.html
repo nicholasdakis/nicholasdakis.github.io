@@ -290,18 +290,28 @@
       }
 
       .theme-toggle {
-        background: none;
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--card);
+        box-shadow: var(--card-shadow);
         border: none;
+        border-radius: 10px;
         cursor: pointer;
         font-family: var(--font);
-        font-size: 13px;
-        color: var(--muted);
-        padding: 0;
-        transition: color 0.2s;
+        font-size: 16px;
+        color: var(--text-secondary);
+        transition: color 0.2s, box-shadow 0.2s;
       }
 
       .theme-toggle:hover {
         color: var(--accent);
+        box-shadow: 0 0 0 1px var(--accent);
       }
 
       @media (max-width: 480px) {
@@ -318,6 +328,7 @@
     </style>
   </head>
   <body>
+    <button id="theme-toggle" class="theme-toggle"></button>
     <div class="wrap">
       <header class="hero">
         <h1>Nicholas Dakis</h1>
@@ -465,7 +476,6 @@
     <footer class="footer">
       <div class="footer-inner">
         <span>&copy; 2026 Nicholas Dakis</span>
-        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode"></button>
       </div>
     </footer>
 
@@ -493,7 +503,8 @@
 
       function applyTheme(dark) {
         document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
-        themeToggle.textContent = dark ? "☀ light mode" : "☽ dark mode";
+        themeToggle.textContent = dark ? "☀︎" : "☽";
+        themeToggle.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
         setFavicons(dark);
       }
 
