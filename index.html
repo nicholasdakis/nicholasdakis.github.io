@@ -15,6 +15,15 @@
       gtag("config", "G-C6H2BNY6K3");
     </script>
 
+    <!-- apply saved theme before first paint to avoid a light-mode flash -->
+    <script>
+      try {
+        var t = localStorage.getItem("theme");
+        var dark = t ? t === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+      } catch (e) {}
+    </script>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="google-adsense-account" content="ca-pub-4003172698560190" />
@@ -36,12 +45,12 @@
     <title>Nicholas Dakis</title>
 
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=JetBrains+Mono:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&display=swap"
       rel="stylesheet"
     />
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
+      href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css"
     />
     <!-- light mode favicons -->
     <link rel="icon" href="/favicons/light/favicon.ico" media="(prefers-color-scheme: light)" />
@@ -70,23 +79,19 @@
         --text: #0a1f1a;
         --text-secondary: #2a4a42;
         --muted: #527068;
-        --border: #b0cfc7;
-        --border-strong: rgba(14,124,106,0.45);
+        --border: #c6dbd3;
         --font: "DM Sans", sans-serif;
-        --display: "DM Sans", sans-serif;
-        --mono: "JetBrains Mono", monospace;
       }
 
       [data-theme="dark"] {
         --bg: #0c1714;
         --card: #142420;
-        --card-shadow: 0 2px 8px rgba(0,0,0,0.5), 0 0 0 1px rgba(14,124,106,0.3);
-        --accent: #2ecc9e;
+        --card-shadow: 0 0 0 1px #24362f;
+        --accent: #45c49a;
         --text: #e0f0ec;
         --text-secondary: #c4ddd7;
-        --muted: #6a9e94;
-        --border: rgba(46,204,158,0.32);
-        --border-strong: rgba(46,204,158,0.6);
+        --muted: #7fa59c;
+        --border: #24362f;
       }
 
       /* --- reset & base --- */
@@ -102,11 +107,9 @@
         background: var(--bg);
         color: var(--text);
         font-family: var(--font);
-        font-size: 14px;
+        font-size: 15px;
         line-height: 1.6;
         min-height: 100vh;
-        display: flex;
-        flex-direction: column;
         overflow-x: hidden;
         -webkit-font-smoothing: antialiased;
       }
@@ -116,658 +119,213 @@
         text-decoration: none;
       }
 
+      a:focus-visible,
+      button:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+
       /* --- layout --- */
       .wrap {
         max-width: 720px;
         margin: 0 auto;
-        padding: 48px 24px 120px;
-        width: 100%;
-        position: relative;
-        z-index: 1;
+        padding: 48px 24px 0;
       }
 
-      /* ---- HERO ---- */
+      /* --- hero --- */
       .hero {
-        margin-bottom: 24px;
+        margin-bottom: 48px;
       }
 
       .hero h1 {
-        font-family: var(--display);
         font-size: clamp(48px, 9vw, 80px);
         font-weight: 800;
         letter-spacing: -0.02em;
-        line-height: 1.0;
+        line-height: 1;
         margin-bottom: 12px;
-        color: var(--text);
       }
 
       .hero-sub {
-        font-size: 15px;
+        font-size: 16px;
         color: var(--text-secondary);
         margin-bottom: 20px;
-        line-height: 1.65;
         max-width: 480px;
       }
 
-      /* ---- HERO LINKS ---- */
+      /* --- buttons --- */
       .links {
         display: flex;
-        gap: 12px;
+        gap: 10px;
         flex-wrap: wrap;
       }
 
-      .link-btn {
+      .btn {
         display: inline-flex;
         align-items: center;
         gap: 7px;
         font-family: var(--font);
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 500;
         color: var(--text-secondary);
         background: var(--card);
         box-shadow: var(--card-shadow);
-        border: none;
-        padding: 10px 18px;
+        padding: 9px 16px;
         border-radius: 10px;
-        transition: color 0.2s, box-shadow 0.2s, transform 0.15s;
+        transition: color 0.2s, box-shadow 0.2s;
       }
 
-      .link-btn:hover {
+      .btn:hover {
         color: var(--accent);
-        transform: translateY(-1px);
-        box-shadow: 0 3px 8px rgba(10,60,50,0.12), 0 0 0 1px var(--accent);
+        box-shadow: 0 0 0 1px var(--accent);
       }
 
-      .link-btn svg {
+      .btn svg {
         width: 13px;
         height: 13px;
         fill: currentColor;
         flex-shrink: 0;
       }
 
-      /* ---- SECTION LABEL ---- */
-      .section-label {
-        font-family: var(--mono);
-        font-size: 9px;
+      /* --- headings --- */
+      h2 {
+        font-size: 20px;
         font-weight: 700;
-        color: var(--accent);
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        margin-bottom: 24px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
+        margin-bottom: 14px;
       }
 
-      .section-label::after {
-        content: "";
-        flex: 1;
-        height: 1px;
-        background: var(--border);
+      h3 {
+        font-size: 15px;
+        font-weight: 700;
+        margin: 24px 0 8px;
       }
 
-      /* ---- SKILLS ROW ---- */
-      .sk-wrap {
-        overflow-x: auto;
-        scrollbar-width: none;
+      section {
+        margin-bottom: 48px;
       }
 
-      .sk-wrap::-webkit-scrollbar {
-        display: none;
-      }
-
-      .sk-track {
+      /* --- tags (skills, platforms, built with) --- */
+      .tags {
         display: flex;
         flex-wrap: wrap;
         gap: 6px;
+        list-style: none;
       }
 
-      .skill-pill {
-        font-family: var(--mono);
-        font-size: 10px;
-        padding: 4px 8px;
-        border-radius: 6px;
-        border: 1px solid var(--border-strong);
+      .tags li {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
         color: var(--text-secondary);
         background: var(--card);
-        white-space: nowrap;
-        cursor: default;
-        transition: border-color 0.2s, color 0.2s;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 5px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-
-      .skill-pill i {
-        font-size: 12px;
-        line-height: 1;
-        flex-shrink: 0;
-      }
-
-      .skill-pill:hover {
-        border-color: var(--accent);
-        color: var(--accent);
-      }
-
-      /* ---- TOOLTIP ---- */
-      #sk-tooltip {
-        position: fixed;
-        pointer-events: none;
-        opacity: 0;
-        background: var(--card);
         border: 1px solid var(--border);
-        border-radius: 8px;
-        padding: 10px 13px;
-        width: 240px;
-        font-family: var(--mono);
-        font-size: 10px;
-        line-height: 1.6;
-        color: var(--muted);
-        z-index: 9999;
-        transition: opacity 0.15s;
-        white-space: normal;
-        max-width: min(240px, calc(100vw - 24px));
+        padding: 3px 10px;
+        border-radius: 6px;
       }
 
-      .sk-tooltip-title {
-        display: block;
-        color: var(--accent);
-        font-weight: 700;
-        margin-bottom: 4px;
-        font-size: 10px;
+      .tags li i {
+        font-size: 14px;
+        line-height: 1;
       }
 
-      /* ---- SCROLL FADE-IN ---- */
-      .fade-in {
-        opacity: 0;
-        transform: translateY(22px);
-        transition:
-          opacity 0.55s ease,
-          transform 0.55s ease;
-      }
-      .fade-in.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      .project-top {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 2px;
+      /* --- project --- */
+      .project {
+        background: var(--card);
+        box-shadow: var(--card-shadow);
+        border-radius: 16px;
+        padding: 28px;
+        margin-bottom: 14px;
       }
 
       .project-name {
-        font-family: var(--display);
-        font-size: 32px;
+        font-size: 30px;
         font-weight: 800;
-        letter-spacing: -0.03em;
-        color: var(--text);
-      }
-
-      .project-subtitle {
-        font-family: var(--font);
-        font-size: 16px;
-        font-weight: 500;
-        color: var(--text-secondary);
-        margin-bottom: 14px;
-        margin-top: 4px;
-      }
-
-      /* --- platform pills row --- */
-      .platform-pills {
-        display: flex;
-        gap: 6px;
-        flex-wrap: wrap;
-        margin-bottom: 16px;
-      }
-
-      .platform-pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-        font-family: var(--mono);
-        font-size: 11px;
-        font-weight: 600;
-        color: var(--text-secondary);
-        background: var(--bg);
-        border: 1px solid var(--border);
-        padding: 5px 10px;
-        border-radius: 4px;
-        white-space: nowrap;
-      }
-
-      .platform-pill svg {
-        width: 11px;
-        height: 11px;
-        fill: currentColor;
-        flex-shrink: 0;
-      }
-
-      /* --- card sub-section label --- */
-      .card-section-label {
-        font-family: var(--mono);
-        font-size: 9px;
-        font-weight: 700;
-        color: var(--accent);
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        margin-bottom: 12px;
-      }
-
-      /* --- bullet lists --- */
-      .project-bullets {
-        padding-left: 0;
-        list-style: none;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        margin-bottom: 18px;
-      }
-
-      .project-bullets li {
-        font-size: 13px;
-        color: var(--text-secondary);
-        line-height: 1.55;
-        padding-left: 14px;
-        position: relative;
-      }
-
-      .project-bullets li::before {
-        content: "›";
-        position: absolute;
-        left: 0;
-        color: var(--accent);
-        font-weight: 700;
-        font-size: 14px;
-        top: 0px;
-        line-height: 1.55;
-      }
-
-      /* --- divider --- */
-      .divider {
-        height: 1px;
-        background: var(--border);
-        margin-bottom: 16px;
-      }
-
-      /* --- tech stack tags --- */
-      .tag-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-      }
-
-      .tag {
-        font-family: var(--mono);
-        font-size: 10px;
-        color: var(--text-secondary);
-        background: var(--bg);
-        border: 1px solid var(--border);
-        padding: 4px 9px;
-        border-radius: 4px;
-      }
-
-      /* ---- PROJECT LINK BUTTONS ---- */
-      .project-links {
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-        margin-bottom: 40px;
-      }
-
-      .project-link-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 7px;
-        font-family: var(--font);
-        font-size: 13px;
-        font-weight: 500;
-        color: var(--text-secondary);
-        background: var(--card);
-        box-shadow: var(--card-shadow);
-        border: none;
-        padding: 9px 16px;
-        border-radius: 10px;
-        transition: color 0.2s, box-shadow 0.2s, transform 0.15s;
-      }
-
-      .project-link-btn:hover {
-        color: var(--accent);
-        transform: translateY(-1px);
-        box-shadow: 0 3px 8px rgba(10,60,50,0.12), 0 0 0 1px var(--accent);
-      }
-
-      .project-link-btn svg {
-        width: 12px;
-        height: 12px;
-        fill: currentColor;
-        flex-shrink: 0;
-      }
-
-      /* ---- TRY IT MODAL ---- */
-      .modal-overlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(10, 31, 26, 0.5);
-        backdrop-filter: blur(6px);
-        -webkit-backdrop-filter: blur(6px);
-        z-index: 1000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.2s;
-      }
-
-      .modal-overlay.open {
-        opacity: 1;
-        pointer-events: all;
-      }
-
-      .modal {
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: 18px;
-        padding: 28px 28px 24px;
-        width: min(360px, calc(100vw - 40px));
-        transform: translateY(12px) scale(0.97);
-        transition: transform 0.2s;
-      }
-
-      .modal-overlay.open .modal {
-        transform: translateY(0) scale(1);
-      }
-
-      .modal-title {
-        font-size: 17px;
-        font-weight: 700;
         letter-spacing: -0.02em;
-        margin-bottom: 6px;
-        text-align: center;
+        line-height: 1.2;
       }
 
-      .modal-sub {
-        font-family: var(--mono);
-        font-size: 10px;
+      .project-desc {
+        font-size: 16px;
         color: var(--text-secondary);
-        margin-bottom: 20px;
-        text-align: center;
+        margin: 6px 0 14px;
       }
 
-      .modal-options {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        margin-bottom: 16px;
-      }
-
-      .modal-option {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 14px 16px;
-        border-radius: 12px;
-        border: 1px solid var(--border);
+      .project .tags li {
         background: var(--bg);
-        color: var(--text);
-        text-decoration: none;
-        transition:
-          border-color 0.2s,
-          color 0.2s;
-        cursor: pointer;
       }
 
-      .modal-option:hover {
-        border-color: var(--accent);
-        color: var(--accent);
-      }
-
-      .modal-option svg {
-        width: 18px;
-        height: 18px;
-        fill: currentColor;
-        flex-shrink: 0;
-      }
-
-      .modal-option-text {
+      .bullets {
+        padding-left: 18px;
         display: flex;
         flex-direction: column;
-        gap: 2px;
+        gap: 6px;
       }
 
-      .modal-option-label {
-        font-size: 13px;
-        font-weight: 600;
+      .bullets li {
+        font-size: 14px;
+        color: var(--text-secondary);
       }
 
-      .modal-option-desc {
-        font-family: var(--mono);
-        font-size: 9px;
+      .source-note {
+        font-size: 14px;
         color: var(--muted);
-        opacity: 0.7;
+        margin-top: 12px;
       }
 
-      .modal-cancel {
-        width: 100%;
-        background: none;
-        border: none;
-        font-family: var(--mono);
-        font-size: 10px;
-        color: var(--muted);
-        opacity: 0.5;
-        cursor: pointer;
-        padding: 4px;
-        transition: opacity 0.2s;
-      }
-
-      .modal-cancel:hover {
-        opacity: 0.9;
-      }
-
-      /* ---- FOOTER ---- */
+      /* --- footer --- */
       .footer {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        padding: 16px 24px;
-        background: var(--card);
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 0 24px 32px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .footer-inner {
         border-top: 1px solid var(--border);
+        padding-top: 16px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        font-family: var(--mono);
-        font-size: 10px;
-        color: var(--muted);
-        z-index: 10;
       }
 
-      .footer-copy {
-        color: var(--muted);
-      }
-
-      /* ---- STATUS DOT ---- */
-      .status {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        color: var(--text-secondary);
-        transition: color 0.2s;
+      .theme-toggle {
+        background: none;
+        border: none;
         cursor: pointer;
+        font-family: var(--font);
+        font-size: 13px;
+        color: var(--muted);
+        padding: 0;
+        transition: color 0.2s;
       }
-      .status:hover {
+
+      .theme-toggle:hover {
         color: var(--accent);
-      }
-
-      .status-dot {
-        width: 5px;
-        height: 5px;
-        border-radius: 50%;
-        background: #4ade80;
-        position: relative;
-        flex-shrink: 0;
-      }
-
-      .status-dot::after {
-        content: "";
-        position: absolute;
-        inset: -3px;
-        border-radius: 50%;
-        background: #4ade80;
-        opacity: 0;
-        animation: ping 2s ease-out infinite;
-      }
-
-      @keyframes ping {
-        0% {
-          transform: scale(1);
-          opacity: 0.6;
-        }
-        100% {
-          transform: scale(2.2);
-          opacity: 0;
-        }
-      }
-
-      /* ---- BENTO ---- */
-      .bento-card .spotlight {
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        opacity: 0;
-        transition: opacity 0.3s;
-        background: radial-gradient(
-          circle 120px at var(--mx, 50%) var(--my, 50%),
-          rgba(14, 124, 106, 0.06),
-          transparent 70%
-        );
-      }
-
-      .bento-card:hover .spotlight {
-        opacity: 1;
-      }
-
-      /* --- bento stagger fade-in --- */
-      .bento-card {
-        opacity: 0;
-        transform: scale(1.012) translateY(10px);
-        transition:
-          background 0.22s,
-          transform 0.35s ease,
-          opacity 0.35s ease;
-      }
-
-      .bento-card.bento-visible {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
-      .bento-card:hover {
-        transform: scale(1.012) translateY(0) !important;
-      }
-
-      /* --- bento grid --- */
-      .bento-wrapper {
-        border-radius: 16px;
-        box-shadow: var(--card-shadow);
-        margin-bottom: 10px;
-        overflow: hidden;
-      }
-
-      .bento {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: auto auto;
-        gap: 1px;
-        background: var(--border);
-        border-radius: 16px;
-        overflow: hidden;
-      }
-
-      .bento-card {
-        background: var(--card);
-        padding: 24px;
-        position: relative;
-        overflow: hidden;
-        transition: background 0.18s;
-      }
-
-      .bento-card:hover {
-        background: var(--bg);
-        z-index: 1;
-      }
-
-      .bento-main {
-        border-radius: 16px 0 0 0;
-        grid-column: 1;
-        grid-row: 1;
-      }
-      .bento-stack {
-        border-radius: 0 16px 0 0;
-        grid-column: 2;
-        grid-row: 1;
-      }
-      .bento-features {
-        border-radius: 0 0 0 16px;
-        grid-column: 1;
-        grid-row: 2;
-      }
-      .bento-hood {
-        border-radius: 0 0 16px 0;
-        grid-column: 2;
-        grid-row: 2;
-      }
-
-
-      @media (max-width: 560px) {
-        .bento {
-          grid-template-columns: 1fr;
-        }
-        .bento-main,
-        .bento-stack,
-        .bento-features,
-        .bento-hood {
-          grid-column: 1;
-          grid-row: auto;
-          border-radius: 0;
-        }
-        .bento-main {
-          border-radius: 16px 16px 0 0;
-        }
-        .bento-hood {
-          border-radius: 0 0 16px 16px;
-        }
       }
 
       @media (max-width: 480px) {
         .wrap {
-          padding: 40px 16px 100px;
+          padding: 40px 16px 0;
         }
-        .project-links {
-          flex-direction: column;
+        .footer {
+          padding: 0 16px 24px;
+        }
+        .project {
+          padding: 22px 18px;
         }
       }
     </style>
   </head>
   <body>
     <div class="wrap">
-      <!-- HERO -->
-      <header class="hero fade-in">
+      <header class="hero">
         <h1>Nicholas Dakis</h1>
         <p class="hero-sub">
           CS student at Queens College interested in backend development.
         </p>
         <div class="links">
-          <a
-            href="https://github.com/nicholasdakis"
-            target="_blank"
-            class="link-btn"
-            aria-label="GitHub profile"
-          >
+          <a href="https://github.com/nicholasdakis" target="_blank" class="btn">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path
                 d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"
@@ -776,12 +334,7 @@
             GitHub
           </a>
 
-          <a
-            href="https://linkedin.com/in/nicholasdakis"
-            target="_blank"
-            class="link-btn"
-            aria-label="LinkedIn profile"
-          >
+          <a href="https://linkedin.com/in/nicholasdakis" target="_blank" class="btn">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path
                 d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
@@ -790,11 +343,7 @@
             LinkedIn
           </a>
 
-          <a
-            href="mailto:nicholasdakis@outlook.com"
-            class="link-btn"
-            aria-label="Send email"
-          >
+          <a href="mailto:nicholasdakis@outlook.com" class="btn">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path
                 d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"
@@ -805,423 +354,132 @@
         </div>
       </header>
 
-      <!-- SKILLS -->
-      <section style="margin-bottom: 32px" class="fade-in" aria-label="Skills">
-        <div class="section-label">Skills</div>
-        <div class="sk-wrap" role="region" aria-label="Scrolling skills list">
-          <div class="sk-track" id="sk-track"></div>
-        </div>
+      <section aria-labelledby="skills-heading">
+        <h2 id="skills-heading">Skills</h2>
+        <ul class="tags">
+          <li><i class="devicon-python-plain" aria-hidden="true"></i>Python</li>
+          <li><i class="devicon-flask-original" aria-hidden="true"></i>Flask</li>
+          <li><i class="devicon-postgresql-plain" aria-hidden="true"></i>PostgreSQL</li>
+          <li>SQL</li>
+          <li><i class="devicon-redis-plain" aria-hidden="true"></i>Redis</li>
+          <li>Pydantic</li>
+          <li><i class="devicon-pytest-plain" aria-hidden="true"></i>pytest</li>
+          <li><i class="devicon-dart-plain" aria-hidden="true"></i>Dart</li>
+          <li><i class="devicon-flutter-plain" aria-hidden="true"></i>Flutter</li>
+          <li>Riverpod</li>
+          <li><i class="devicon-githubactions-plain" aria-hidden="true"></i>GitHub Actions</li>
+        </ul>
       </section>
 
-      <!-- PROJECTS -->
-      <section class="section fade-in" aria-label="Projects">
-        <div class="section-label">Projects</div>
+      <section aria-labelledby="projects-heading">
+        <h2 id="projects-heading">Projects</h2>
 
-        <div class="bento-wrapper">
-          <div class="bento" role="list">
-            <!-- top-left: main info -->
-            <div
-              class="bento-card bento-main"
-              role="listitem"
-              aria-label="Level Up app"
-              style="cursor: pointer"
-              id="try-it-card"
-            >
-              <div class="spotlight" aria-hidden="true"></div>
-              <div class="project-top">
-                <div class="project-name">Level Up!</div>
-              </div>
-              <div class="project-subtitle">Gamified health app</div>
-              <div class="platform-pills" aria-label="Available platforms">
-                <span class="platform-pill">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.523 15.341a5 5 0 01-4.642 3.146A5 5 0 017.24 15.34L4.5 10.5h15l-1.977 4.841zM6.5 3.5l1.5 3h8l1.5-3M8 3.5L6 1m10 2.5L14 1"/></svg>
-                  Android
-                </span>
-                <span class="platform-pill">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm0 2c.55 0 1.3.8 1.9 2.2A13.8 13.8 0 0114.5 12a13.8 13.8 0 01-.6 5.8C13.3 19.2 12.55 20 12 20s-1.3-.8-1.9-2.2A13.8 13.8 0 019.5 12c0-2.15.2-4.1.6-5.8C10.7 4.8 11.45 4 12 4zm-8 8c0-2 .5-3.85 1.35-5.45A8 8 0 014 12a8 8 0 01-.65-2m1 2c0 1.1.2 2.15.55 3.1A7.95 7.95 0 014 12zm16 0a8 8 0 01-.65 2.55 8 8 0 01.65-2.55zm0 0a8 8 0 00-.65-2.45A8 8 0 0120 12z"/></svg>
-                  Web
-                </span>
-                <span class="platform-pill">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm-1 5h2v6l4-4 1.4 1.4L12 16.8l-6.4-6.4L7 9l4 4V7z"/></svg>
-                  PWA
-                </span>
-              </div>
-            </div>
+        <article class="project">
+          <div class="project-name">Level Up!</div>
+          <p class="project-desc">
+            Health tracking app for food, water, weight, workouts and habits,
+            with XP, streaks and challenges.
+          </p>
+          <ul class="tags" aria-label="Platforms">
+            <li>Android</li>
+            <li>Web (PWA)</li>
+          </ul>
 
-            <!-- top-right: tech stack -->
-            <div class="bento-card bento-stack" role="listitem">
-              <div class="spotlight" aria-hidden="true"></div>
-              <div class="card-section-label">Tech Stack</div>
-              <div class="tag-row" aria-label="Technologies used">
-                <span class="tag">Flutter</span>
-                <span class="tag">Riverpod</span>
-                <span class="tag">Python Flask</span>
-                <span class="tag">PostgreSQL</span>
-                <span class="tag">Supabase</span>
-                <span class="tag">Redis</span>
-                <span class="tag">Firebase</span>
-                <span class="tag">GitHub Actions</span>
-                <span class="tag">CI/CD</span>
-                <span class="tag">FCM</span>
-                <span class="tag">Pydantic</span>
-                <span class="tag">pytest</span>
-              </div>
-            </div>
+          <h3>Features</h3>
+          <ul class="bullets">
+            <li>Log meals via barcode scan, search (typed or speech-to-text), manual entry, or saved meal templates, with macro and micronutrient breakdown</li>
+            <li>Track workouts with sets, reps, weight, live and rest timers, and personal record (PR) alerts; active sessions survive the app closing</li>
+            <li>Create workout routines, or browse and save public ones</li>
+            <li>Check in to nearby points of interest on a map to earn XP</li>
+            <li>Leaderboards and achievement badges</li>
+            <li>Daily rewards with streak multipliers</li>
+            <li>Reminders through push notifications</li>
+            <li>Track habits with consistency scoring and per-habit streaks</li>
+            <li>Friend system with activity feed, nudges, and privacy controls</li>
+            <li>Daily, weekly, and global challenges with shared progress</li>
+            <li>Analytics for food, workouts, water and weight</li>
+            <li>Shareable stat and recap cards</li>
+            <li>Optional Pro subscription</li>
+          </ul>
 
-            <!-- bottom-left: features -->
-            <div class="bento-card bento-features" role="listitem">
-              <div class="spotlight" aria-hidden="true"></div>
-              <div class="card-section-label">Features</div>
-              <ul class="project-bullets" style="margin-bottom: 0">
-                <li>Log meals via barcode scan, search, or manual entry with macro breakdown and analytics</li>
-                <li>Track workouts with sets, reps, weight, live timer, and PR alerts</li>
-                <li>Check in to nearby points of interest on a map to earn XP</li>
-                <li>Climb tiers, compete on leaderboards, and unlock achievement badges</li>
-                <li>Daily rewards with streak multipliers and push notification reminders</li>
-                <li>Track habits with consistency scoring and per-habit streaks</li>
-                <li>Friend system with activity feed, nudges, and privacy controls</li>
-                <li>Daily, weekly, and global challenges with shared progress</li>
-                <li>Analytics for food, workouts, water, weight, and more</li>
-              </ul>
-            </div>
+          <h3>Technical details</h3>
+          <ul class="bullets">
+            <li>Flask backend split into route, service and repository layers; every user route checks the Firebase token</li>
+            <li>PL/pgSQL functions with row-level locking for XP and reward updates</li>
+            <li>The PL/pgSQL functions are tested in CI against a temporary PostgreSQL database</li>
+            <li>Row-level security is on for every table; only the backend's service key can access the data</li>
+            <li>Redis cache for food search, with a per-query lock to prevent cache stampedes</li>
+            <li>Daily quota on food API calls; a failed call doesn't count against the quota</li>
+            <li>Push notifications through FCM; invalid device tokens are removed automatically</li>
+            <li>GitHub Actions runs the pytest and Flutter test suites and deploys the web app only if both pass</li>
+          </ul>
 
-            <!-- bottom-right: under the hood -->
-            <div class="bento-card bento-hood" role="listitem">
-              <div class="spotlight" aria-hidden="true"></div>
-              <div class="card-section-label">Under the hood</div>
-              <ul class="project-bullets" style="margin-bottom: 0">
-                <li>
-                  Service + repository + server layer pattern (ProgressionService,
-                  FoodService, WorkoutService etc. above UserRepository,
-                  WorkoutRepository etc.) with shared auth middleware across all 140+ routes
-                </li>
-                <li>
-                  PostgreSQL stored procedures with row-level locking for atomic
-                  XP updates
-                </li>
-                <li>
-                  Redis caching with distributed locking to prevent cache
-                  stampedes
-                </li>
-                <li>
-                  Token-bucket rate limiter with daily refills and failure-safe
-                  rollback
-                </li>
-                <li>
-                  FCM push notifications with automatic stale token pruning
-                </li>
-                <li>
-                  GitHub Actions CI/CD; deploys only on passing pytest suite
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
+          <h3>Built with</h3>
+          <ul class="tags">
+            <li>Dart</li>
+            <li>Flutter</li>
+            <li>Riverpod</li>
+            <li>flutter_map</li>
+            <li>Python</li>
+            <li>Flask</li>
+            <li>Pydantic</li>
+            <li>Gunicorn</li>
+            <li>Render</li>
+            <li>PostgreSQL</li>
+            <li>Supabase</li>
+            <li>Redis</li>
+            <li>Firebase (Auth, Cloud Messaging, Analytics)</li>
+            <li>pytest</li>
+            <li>GitHub Actions</li>
+            <li>FatSecret API</li>
+            <li>Open Food Facts</li>
+            <li>OpenStreetMap Overpass API</li>
+            <li>Unity Ads</li>
+            <li>Google Play Billing</li>
+          </ul>
+        </article>
 
-        <!-- Repo / README / Wiki buttons -->
-        <div class="project-links">
+        <div class="links">
           <a
             href="https://play.google.com/store/apps/details?id=com.nicholasdakis.levelup&referrer=utm_source%3Dportfolio%26utm_medium%3Dwebsite%26utm_campaign%3Dportfolio_home"
             target="_blank"
-            class="project-link-btn"
-            aria-label="Download on Google Play"
+            class="btn"
           >
-            <!-- Google Play icon -->
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M5 3.7L18.3 12 5 20.3V3.7z" />
             </svg>
             Google Play
           </a>
 
-          <a
-            href="/level_up"
-            target="_blank"
-            class="project-link-btn"
-            aria-label="Open web app"
-          >
+          <a href="/level-up/" target="_blank" class="btn">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm-1 17.93V18a1 1 0 00-2 0v1.93A8.001 8.001 0 014.07 13H6a1 1 0 000-2H4.07A8.001 8.001 0 0111 4.07V6a1 1 0 002 0V4.07A8.001 8.001 0 0119.93 11H18a1 1 0 000 2h1.93A8.001 8.001 0 0113 19.93z"/>
             </svg>
-            Web / PWA
+            Web app
           </a>
-
-          <button
-            class="project-link-btn"
-            id="private-repo-btn"
-            aria-label="Repository info"
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/>
-            </svg>
-            Repo
-          </button>
-
         </div>
+        <p class="source-note">Source code is private.</p>
       </section>
     </div>
 
-    <!-- PRIVATE REPO MODAL -->
-    <div
-      class="modal-overlay"
-      id="repo-modal"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Repository info"
-    >
-      <div class="modal">
-        <div class="modal-title">Repository is Private</div>
-        <div class="modal-sub">I started this openly, but as it grew into something real I decided I wanted to keep it private. May open-source it down the line.</div>
-        <div class="modal-options">
-          <a href="mailto:nicholasdakis@outlook.com" class="modal-option">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
-            </svg>
-            <div class="modal-option-text">
-              <span class="modal-option-label">Get in touch</span>
-              <span class="modal-option-desc">Reach out if you have questions about the project</span>
-            </div>
-          </a>
-          <a href="https://linkedin.com/in/nicholasdakis" target="_blank" class="modal-option">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-            </svg>
-            <div class="modal-option-text">
-              <span class="modal-option-label">Connect on LinkedIn</span>
-              <span class="modal-option-desc">Message me there instead</span>
-            </div>
-          </a>
-        </div>
-        <button class="modal-cancel" id="repo-modal-cancel">Cancel</button>
-      </div>
-    </div>
-
-    <!-- TRY IT MODAL -->
-    <div
-      class="modal-overlay"
-      id="try-modal"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Choose a version"
-    >
-      <div class="modal">
-        <div class="modal-title">Try Level Up!</div>
-        <div class="modal-sub">Choose how you'd like to open it</div>
-        <div class="modal-options">
-          <a href="/level_up" target="_blank" class="modal-option">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                d="M12 2a10 10 0 100 20A10 10 0 0012 2zm-1 17.93V18a1 1 0 00-2 0v1.93A8.001 8.001 0 014.07 13H6a1 1 0 000-2H4.07A8.001 8.001 0 0111 4.07V6a1 1 0 002 0V4.07A8.001 8.001 0 0119.93 11H18a1 1 0 000 2h1.93A8.001 8.001 0 0113 19.93z"
-              />
-            </svg>
-            <div class="modal-option-text">
-              <span class="modal-option-label">Web / PWA</span>
-              <span class="modal-option-desc"
-                >Opens in browser, installable as a PWA</span
-              >
-            </div>
-          </a>
-          <a
-            href="https://play.google.com/store/apps/details?id=com.nicholasdakis.levelup&referrer=utm_source%3Dportfolio%26utm_medium%3Dwebsite%26utm_campaign%3Dportfolio_home"
-            target="_blank"
-            class="modal-option"
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M5 3.7L18.3 12 5 20.3V3.7z" />
-            </svg>
-            <div class="modal-option-text">
-              <span class="modal-option-label">Android / Google Play</span>
-              <span class="modal-option-desc"
-                >Native app on the Play Store</span
-              >
-            </div>
-          </a>
-        </div>
-        <button class="modal-cancel" id="modal-cancel">Cancel</button>
-      </div>
-    </div>
-
-    <!-- FOOTER -->
     <footer class="footer">
-      <span class="footer-copy">&copy; 2026 Nicholas Dakis</span>
-      <button id="theme-toggle" aria-label="Toggle dark mode" style="background:none;border:none;cursor:pointer;font-family:var(--mono);font-size:10px;color:var(--muted);opacity:0.6;padding:0;transition:opacity 0.2s;" onmouseenter="this.style.opacity=1" onmouseleave="this.style.opacity=0.6"></button>
+      <div class="footer-inner">
+        <span>&copy; 2026 Nicholas Dakis</span>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode"></button>
+      </div>
     </footer>
 
-    <!-- TOOLTIP -->
-    <div id="sk-tooltip" role="tooltip" aria-live="polite">
-      <span class="sk-tooltip-title" id="sk-tooltip-title"></span>
-      <span id="sk-tooltip-body"></span>
-    </div>
-
     <script>
-      const _skills = {
-        PostgreSQL:
-          "Stores all user data across 40+ tables with PL/pgSQL stored functions handling XP updates, streak calculations, cooldown checks, and token consumption atomically; a trigger-based approach denormalizes like counts for instant reads without aggregation queries",
-        Redis:
-          "Caches FatSecret API responses for 30+ days per food name, issues per-query distributed locks to prevent cache stampedes, and enforces IP-based rate limiting on sensitive endpoints to prevent enumeration attacks",
-        Flask:
-          "Serves 140+ endpoints across progression, food, workouts, POI, social, reminders, achievements, and settings with a shared _parse_and_auth() helper that deserializes the request body into a Pydantic schema and verifies the Firebase JWT in one step",
-        Pydantic:
-          "Validates most incoming request bodies against typed schemas (e.g. coordinate bounds on POI check-ins, enum values for weight goal type) and defines typed response models returned from every route",
-        "Flutter Web":
-          "Compiles to WASM/JS and serves as a PWA from GitHub Pages, with a custom service worker for FCM background messages, go_router for client-side navigation, and a ValueListenableBuilder at the root that rebuilds the full MaterialApp theme on color change",
-        Dart: "State management via Riverpod AsyncNotifier, all backend communication via http package with Firebase ID token headers, and utility classes like FoodLoggingHelper for parsing and scaling nutrition data",
-        "Row-level Locking":
-          "Applied via SELECT FOR UPDATE inside 5+ PL/pgSQL functions on users, poi_visits, rate_limits, streaks, and achievement_progress to serialize concurrent requests at the database level",
-        "Atomic Transactions":
-          "Each PL/pgSQL stored function wraps its lock, validation, and update steps in a single transaction so partial state is never committed; XP is only added if the cooldown check passes, streak only updated if the food log write succeeds",
-        "Distributed Locking":
-          "Uses redis-py's redis.lock() on a per-food-name key with a 10s+ hold and 5s+ acquisition timeout so only one Gunicorn worker calls the FatSecret API per unique query while others wait or receive a 503",
-        "Token-bucket Rate Limiting":
-          "Maintains a rate_limits row with current_tokens and last_refill_time; consume_tokens decrements under a row-level lock and resets every 24 hours, with refund_tokens restoring tokens when the FatSecret API call fails",
-        pytest:
-          "120+ tests across the services layer using dependency injection and unittest.mock to isolate business logic from PostgreSQL, Redis, Firebase, and external APIs; suite blocks deployment on failure via GitHub Actions",
-        "GitHub Actions":
-          "Two-job pipeline: first runs pytest, second (only if tests pass) builds the Flutter web app and deploys to GitHub Pages with secrets injected via encrypted GitHub Secrets",
-        Riverpod:
-          "AsyncNotifier pattern for all server-backed state; manual state patching on optimistic updates instead of full refreshes, and derived state getters that mirror server-side XP and streak formulas so the UI updates instantly without waiting for a round trip",
-      };
-
-      const _skillIcons = {
-        PostgreSQL: "devicon-postgresql-plain",
-        Redis: "devicon-redis-plain",
-        Flask: "devicon-flask-original",
-        Pydantic: "devicon-python-plain",
-        "Flutter Web": "devicon-flutter-plain",
-        Dart: "devicon-dart-plain",
-        pytest: "devicon-pytest-plain",
-        "GitHub Actions": "devicon-github-original",
-        Riverpod: "devicon-dart-plain",
-      };
-
-      const track = document.getElementById("sk-track");
-      const tooltip = document.getElementById("sk-tooltip");
-      const tooltipTitle = document.getElementById("sk-tooltip-title");
-      const tooltipBody = document.getElementById("sk-tooltip-body");
-      const entries = Object.entries(_skills);
-
-      entries.forEach(([name, desc]) => {
-        const pill = document.createElement("span");
-        pill.className = "skill-pill";
-        pill.setAttribute("tabindex", "0");
-        pill.setAttribute("role", "button");
-        pill.setAttribute("aria-label", name);
-
-        if (_skillIcons[name]) {
-          const icon = document.createElement("i");
-          icon.className = _skillIcons[name];
-          icon.setAttribute("aria-hidden", "true");
-          pill.appendChild(icon);
-        }
-        pill.appendChild(document.createTextNode(name));
-
-        const showTip = (e) => {
-          tooltipTitle.textContent = "Usage: Level Up!";
-          tooltipBody.textContent = desc;
-          tooltip.style.opacity = "1";
-          positionTooltip(e);
-        };
-
-        pill.addEventListener("mouseenter", showTip);
-        pill.addEventListener("mousemove", positionTooltip);
-        pill.addEventListener("mouseleave", () => {
-          tooltip.style.opacity = "0";
-        });
-        pill.addEventListener("focus", showTip);
-        pill.addEventListener("blur", () => {
-          tooltip.style.opacity = "0";
-        });
-
-        track.appendChild(pill);
-      });
-
-      function positionTooltip(e) {
-        const tw = tooltip.offsetWidth; // actual rendered width
-        const th = tooltip.offsetHeight;
-        const vw = window.innerWidth;
-
-        let left = e.clientX - tw / 2;
-        let top = e.clientY - th - 12;
-
-        // clamp horizontally so tooltip never escapes viewport
-        left = Math.max(8, Math.min(left, vw - tw - 8));
-        // if not enough room above, flip below cursor
-        if (top < 8) top = e.clientY + 20;
-
-        tooltip.style.left = left + "px";
-        tooltip.style.top = top + "px";
-      }
-
-      // scroll fade-in
-      const observer = new IntersectionObserver(
-        (observed) => {
-          observed.forEach((el) => {
-            if (el.isIntersecting) {
-              el.target.classList.add("visible");
-              observer.unobserve(el.target);
-            }
-          });
-        },
-        { threshold: 0.1 },
-      );
-
-      document.querySelectorAll(".fade-in").forEach((el, i) => {
-        el.style.transitionDelay = `${i * 0.08}s`;
-        observer.observe(el);
-      });
-
-      // bento stagger fade-in
-      const bentoObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              const cards = entry.target.querySelectorAll(".bento-card");
-              cards.forEach((card, i) => {
-                setTimeout(() => card.classList.add("bento-visible"), i * 80);
-              });
-              bentoObserver.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.1 },
-      );
-
-      const bentoEl = document.querySelector(".bento");
-      if (bentoEl) bentoObserver.observe(bentoEl);
-
-      // try it modal
-      const tryModal = document.getElementById("try-modal");
-      document.getElementById("try-it-card").addEventListener("click", () => {
-        tryModal.classList.add("open");
-      });
-      document.getElementById("modal-cancel").addEventListener("click", () => {
-        tryModal.classList.remove("open");
-      });
-      tryModal.addEventListener("click", (e) => {
-        if (e.target === tryModal) tryModal.classList.remove("open");
-      });
-
-      // private repo modal
-      const repoModal = document.getElementById("repo-modal");
-      document.getElementById("private-repo-btn").addEventListener("click", () => {
-        repoModal.classList.add("open");
-      });
-      document.getElementById("repo-modal-cancel").addEventListener("click", () => {
-        repoModal.classList.remove("open");
-      });
-      repoModal.addEventListener("click", (e) => {
-        if (e.target === repoModal) repoModal.classList.remove("open");
-      });
-
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
-          tryModal.classList.remove("open");
-          repoModal.classList.remove("open");
-        }
-      });
-
-      // dark/light mode toggle
       const themeToggle = document.getElementById("theme-toggle");
       const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+
+      function getSaved() {
+        try {
+          return localStorage.getItem("theme");
+        } catch (e) {
+          return null;
+        }
+      }
 
       function setFavicons(dark) {
         const folder = dark ? "dark" : "light";
@@ -1239,30 +497,19 @@
         setFavicons(dark);
       }
 
-      const saved = localStorage.getItem("theme");
-      const initDark = saved ? saved === "dark" : prefersDark.matches;
-      applyTheme(initDark);
+      const saved = getSaved();
+      applyTheme(saved ? saved === "dark" : prefersDark.matches);
 
       themeToggle.addEventListener("click", () => {
-        const isDark = document.documentElement.getAttribute("data-theme") === "dark";
-        const next = !isDark;
-        localStorage.setItem("theme", next ? "dark" : "light");
+        const next = document.documentElement.getAttribute("data-theme") !== "dark";
+        try {
+          localStorage.setItem("theme", next ? "dark" : "light");
+        } catch (e) {}
         applyTheme(next);
       });
 
       prefersDark.addEventListener("change", (e) => {
-        if (!localStorage.getItem("theme")) applyTheme(e.matches);
-      });
-
-      // cursor spotlight on bento cards
-      document.querySelectorAll(".bento-card").forEach((card) => {
-        card.addEventListener("mousemove", (e) => {
-          const rect = card.getBoundingClientRect();
-          const x = ((e.clientX - rect.left) / rect.width) * 100;
-          const y = ((e.clientY - rect.top) / rect.height) * 100;
-          card.style.setProperty("--mx", x + "%");
-          card.style.setProperty("--my", y + "%");
-        });
+        if (!getSaved()) applyTheme(e.matches);
       });
     </script>
   </body>
